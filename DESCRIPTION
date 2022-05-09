@@ -1,0 +1,19 @@
+Package: dovetail
+Title: Translate Carpentries Lessons
+Version: 0.0.0.9000
+Authors@R: 
+    person(
+      given = "Joel H.",
+      family = "Nitta",
+      role = c("aut", "cre"),
+      email = "joelnitta@gmail.com",
+      comment = c(ORCID = "0000-0003-4719-7472")
+    )
+Description: Provides tools to translate a Carpentries-themed lesson from one
+  language to another. The resulting translated lesson is an accessible 
+  standalone static website. The translation is done using PO files, which
+  are meant to be edited by the Carpentries community at large.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2
