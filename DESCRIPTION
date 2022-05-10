@@ -22,4 +22,5 @@ Imports:
     babelwhale,
     digest,
     fs,
-    glue
+    glue,
+    magrittr
