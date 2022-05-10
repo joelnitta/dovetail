@@ -28,6 +28,7 @@ Imports:
     fs,
     glue,
     magrittr,
+    purrr,
     readr,
     stringr,
     tibble
