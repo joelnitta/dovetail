@@ -1,0 +1,68 @@
+#
+msgid ""
+msgstr ""
+
+msgid "Test file"
+msgstr ""
+
+msgid "This is a document for testing parsing of markdown. It is compatible with [https://spec.commonmark.org/](CommonMark) markdown specification."
+msgstr ""
+
+msgid "The text below is modified from https://raw.githubusercontent.com/rust-lang/mdBook/97b6a35afc1f40c505c42dbef5d306b43430955a/guide/src/format/markdown.md"
+msgstr ""
+
+msgid "under the [Mozilla Public License v2.0](https://www.mozilla.org/en-US/MPL/2.0/)"
+msgstr ""
+
+msgid "Headings"
+msgstr ""
+
+msgid "A heading"
+msgstr ""
+
+msgid "Some text."
+msgstr ""
+
+msgid "A smaller heading"
+msgstr ""
+
+msgid "More text."
+msgstr ""
+
+msgid "Lists"
+msgstr ""
+
+msgid "milk"
+msgstr ""
+
+msgid "eggs"
+msgstr ""
+
+msgid "butter"
+msgstr ""
+
+msgid "carrots"
+msgstr ""
+
+msgid "celery"
+msgstr ""
+
+msgid "radishes"
+msgstr ""
+
+msgid "Links"
+msgstr ""
+
+msgid "Linking to a URL or local file is easy:"
+msgstr ""
+
+msgid "Use [mdBook](https://github.com/rust-lang/mdBook)."
+msgstr ""
+
+msgid "Read about [mdBook](mdBook.md)."
+msgstr ""
+
+msgid "A bare url: <https://www.rust-lang.org>."
+msgstr ""
+
+
