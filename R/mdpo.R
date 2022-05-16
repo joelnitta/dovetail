@@ -13,9 +13,20 @@
 #'   [md2po](https://mdpo.readthedocs.io/en/master/cli.html#md2po).
 #'   Must be formatted like the `args` command used by [processx::run()].
 #'
-#' @return List with components formatted like the output of [processx::run()].
-#' Externally, the PO file will be generated at the path specified by `po`.
+#' @return Character vector of length 1; the path to the PO file specified by
+#' `po`. Externally, the PO file will be generated at that path.
 #' @export
+#' @examples
+#' # Write a PO file based on the example MD file in this package
+#' # to a temporary file, check the first few lines, then delete it
+#' temp_po <- tempfile(fileext = "po")
+#' md2po(
+#'   md_in = system.file("extdata", "test_small.md", package = "dovetail"),
+#'   po = temp_po,
+#'   other_args = "--nolocation"
+#' )
+#' head(readLines(temp_po))
+#' unlink(temp_po)
 #'
 md2po <- function(
   md_in, po, wrap_width = 0, other_args = NULL) {
@@ -50,10 +61,26 @@ md2po <- function(
 #'   [po2md](https://mdpo.readthedocs.io/en/master/cli.html#po2m).
 #'   Must be formatted like the `args` command used by [processx::run()].
 #'
-#' @return List with components formatted like the output of [processx::run()].
-#' Externally, translated MD file will be generated at the path specified by
-#'   `md_out`.
+#' @return Character vector of length 1; the path to the translated MD file
+#'   specified by `md_out`. Externally, the translated MD file will be generated
+#'   at that path.
 #' @export
+#' @examples
+#' # Translate an MD file using example MD and PO file with this package
+#' # to a temporary file, check the first few lines, then delete it
+#' temp_md <- tempfile(fileext = "md")
+#' po2md(
+#'   md_in = system.file("extdata", "test_small.md", package = "dovetail"),
+#'   po = system.file("extdata", "test_small.ja.po", package = "dovetail"),
+#'   md_out = temp_md
+#' )
+#' # first six lines of the original
+#' head(readLines(
+#'   system.file("extdata", "test_small.md", package = "dovetail")
+#' ))
+#' # first six lines of the translation
+#' head(readLines(temp_md))
+#' unlink(temp_md)
 #'
 po2md <- function(
   md_in, po, md_out,

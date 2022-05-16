@@ -19,12 +19,25 @@ to wrap lines in PO file. \code{0} (default) indicates no wrapping.}
 Must be formatted like the \code{args} command used by \code{\link[processx:run]{processx::run()}}.}
 }
 \value{
-List with components formatted like the output of \code{\link[processx:run]{processx::run()}}.
-Externally, the PO file will be generated at the path specified by \code{po}.
+Character vector of length 1; the path to the PO file specified by
+\code{po}. Externally, the PO file will be generated at that path.
 }
 \description{
 This is a wrapper around the
 \href{https://mdpo.readthedocs.io/en/master/cli.html#md2po}{md2po}
 command. It calls \code{md2po} from Docker,
 and therefore requires Docker to be installed and running.
+}
+\examples{
+# Write a PO file based on the example MD file in this package
+# to a temporary file, check the first few lines, then delete it
+temp_po <- tempfile(fileext = "po")
+md2po(
+  md_in = system.file("extdata", "test_small.md", package = "dovetail"),
+  po = temp_po,
+  other_args = "--nolocation"
+)
+head(readLines(temp_po))
+unlink(temp_po)
+
 }

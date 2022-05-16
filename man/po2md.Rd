@@ -22,13 +22,31 @@ to wrap lines in PO file. \code{0} (default) indicates no wrapping.}
 Must be formatted like the \code{args} command used by \code{\link[processx:run]{processx::run()}}.}
 }
 \value{
-List with components formatted like the output of \code{\link[processx:run]{processx::run()}}.
-Externally, translated MD file will be generated at the path specified by
-\code{md_out}.
+Character vector of length 1; the path to the translated MD file
+specified by \code{md_out}. Externally, the translated MD file will be generated
+at that path.
 }
 \description{
 This is a wrapper around the
 \href{https://mdpo.readthedocs.io/en/master/cli.html#po2md}{po2md}
 command. It calls \code{po2md} from Docker,
 and therefore requires Docker to be installed and running.
+}
+\examples{
+# Translate an MD file using example MD and PO file with this package
+# to a temporary file, check the first few lines, then delete it
+temp_md <- tempfile(fileext = "md")
+po2md(
+  md_in = system.file("extdata", "test_small.md", package = "dovetail"),
+  po = system.file("extdata", "test_small.ja.po", package = "dovetail"),
+  md_out = temp_md
+)
+# first six lines of the original
+head(readLines(
+  system.file("extdata", "test_small.md", package = "dovetail")
+))
+# first six lines of the translation
+head(readLines(temp_md))
+unlink(temp_md)
+
 }
