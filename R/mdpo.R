@@ -21,17 +21,18 @@ md2po <- function(
   md_in, po, wrap_width = 0, other_args = NULL) {
   assertthat::assert_that(assertthat::is.readable(md_in))
   assertthat::assert_that(assertthat::is.string(po))
-  run_auto_mount(
+  res <- run_auto_mount(
     container_id = "joelnitta/mdpo:latest",
     command = "md2po",
     args = c(
       file = md_in,
       "-po", file = po,
-      "-s", file = po,
       "--wrapwidth", wrap_width,
       other_args
     )
   )
+  readr::write_lines(res$stdout, po)
+  po
 }
 
 #' Create a translated MD file from an input MD file and a PO file
@@ -57,15 +58,16 @@ md2po <- function(
 po2md <- function(
   md_in, po, md_out,
   wrap_width = 0, other_args = NULL) {
-  run_auto_mount(
+  res <- run_auto_mount(
     container_id = "joelnitta/mdpo:latest",
     command = "po2md",
     args = c(
       file = md_in,
       "--pofiles", file = po,
-      "-s", file = md_out,
       "--wrapwidth", wrap_width,
       other_args
     )
   )
+  readr::write_lines(res$stdout, md_out)
+  md_out
 }
