@@ -4,7 +4,13 @@
 \alias{create_po}
 \title{Create a single PO file for translating a (R)markdown file}
 \usage{
-create_po(md_in, po, wrap_width = 0, other_args = NULL)
+create_po(
+  md_in,
+  po,
+  wrap_width = 0,
+  include_codeblocks = TRUE,
+  other_args = NULL
+)
 }
 \arguments{
 \item{md_in}{Character vector of length 1; path to existing MD file.}
@@ -13,6 +19,9 @@ create_po(md_in, po, wrap_width = 0, other_args = NULL)
 
 \item{wrap_width}{Integer vector of length 1; number of characters
 to wrap lines in PO file. \code{0} (default) indicates no wrapping.}
+
+\item{include_codeblocks}{Logical vector of length 1; should code blocks
+be included in the PO file? Default \code{TRUE}.}
 
 \item{other_args}{Character vector; other arguments used by
 \href{https://mdpo.readthedocs.io/en/master/cli.html#md2po}{md2po}.
@@ -23,12 +32,19 @@ List with components formatted like the output of \code{\link[processx:run]{proc
 Externally, the PO file will be generated at the path specified by \code{po}.
 }
 \description{
-Create a single PO file for translating a (R)markdown file
+Any folders that don't yet exist for the output path specified will be
+automatically created.
 }
 \examples{
-\dontrun{
-# This example assumes the command is being run from the root of a
-# carpentries lesson.
-create_po("episodes/01-introduction.Rmd", "po/ja/01-introduction.po")
-}
+# Write a PO file based on the example MD file in this package
+# to a temporary file, check the first few lines, then delete it
+temp_po <- tempfile(fileext = "po")
+create_po(
+  md_in = system.file("extdata", "test.Rmd", package = "dovetail"),
+  po = temp_po,
+  other_args = "--nolocation"
+)
+head(readLines(temp_po))
+unlink(temp_po)
+
 }
