@@ -29,12 +29,14 @@ by the \code{lang} argument.
 
 The easiest way to set this up is to use \code{\link[=create_locale]{create_locale()}} first.
 
-It also requires that PO files are located in a folder like this:\preformatted{|--- po
+It also requires that PO files are located in a folder like this:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{|--- po
      \\---ja/
          |---01-introduction.po
          |---index.po
          ...
-}
+}\if{html}{\out{</div>}}
 
 Where \code{01-introduction.po} and \code{index.po} are PO files corresponding
 to \code{01-introduction.md} and \code{index.md} in the original language.
