@@ -1,22 +1,16 @@
-#' Pre-process a (R)markdown file for generating a PO file
+#' Exclude pandoc fences from an MD file
 #'
-#' Adds comments so that mdpo will exclude certain lines from the PO file
+#' @param md_lines Character vector; lines read in from a markdown file
 #'
-#' @param md_in Path to input (R)markdown file
-#' @param md_out Path to write modified (R)markdown file
-#'
-#' @return Nothing; externally, the modified MD file will be written to md_out
+#' @return Character vector with comments inserted that tell mdpo
+#' to ignore lines starting with :::
+#' @autoglobal
 #' @noRd
 #'
-prep_rmd_for_po <- function(md_in, md_out) {
-
-  # Read in MD file
-  md_lines <- readr::read_lines(md_in)
-
-  # Early exit just copying the md file if no YAML header
+exclude_fences <- function(md_lines) {
+  # Early exit just returning input if no pandoc fences
   if (!any(stringr::str_detect(md_lines, "^\\:\\:\\:"))) {
-    fs::file_copy(md_in, md_out, overwrite = TRUE)
-    return(TRUE)
+    return(md_lines)
   }
 
   # Exclude pandoc fences
@@ -33,8 +27,7 @@ prep_rmd_for_po <- function(md_in, md_out) {
     }
   }
 
-  # Write out lines
-  readr::write_lines(md_lines, md_out)
+  md_lines
 
 }
 

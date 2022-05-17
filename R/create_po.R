@@ -20,8 +20,10 @@ create_po <- function(md_in, po, wrap_width = 0, other_args = NULL) {
   # Pre-process MD for creating PO
   temp_md <- tempfile()
 
-  # Excludes YAML header, fences
-  prep_rmd_for_po(md_in, temp_md)
+  # Exclude fences
+  md_lines <- readr::read_lines(md_in)
+  md_lines <- exclude_fences(md_lines)
+  readr::write_lines(md_lines, temp_md)
 
   # Make PO
   md2po(
