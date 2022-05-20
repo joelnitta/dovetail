@@ -69,6 +69,20 @@ fix_yaml_header <- function(md_in, md_out) {
     return(invisible(md_out))
   }
 
+  # Check for YAML header that had no content between --- and ---
+  # second variation
+  if (
+    md_lines[[1]] == "***" &&
+    md_lines[[2]] == "" &&
+    md_lines[[3]] == "***"
+  ) {
+    md_lines[[1]] <- "---"
+    md_lines[[3]] <- "---"
+    md_lines <- md_lines[-2]
+    readr::write_lines(md_lines, md_out)
+    return(invisible(md_out))
+  }
+
   yaml_head_start <- which(stringr::str_detect(md_lines, "^\\*\\*\\*$"))[[1]]
 
   assertthat::assert_that(
