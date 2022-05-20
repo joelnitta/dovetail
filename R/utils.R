@@ -43,7 +43,8 @@ exclude_fences <- function(md_lines) {
 #' @param md_in Path to MD file with mangled YAML header.
 #' @param md_out Path to write MD file with repaired YAML header.
 #'
-#' @return Nothing; externally, the repaired MD file will be written to md_out
+#' @return `md_out` invisibly; externally,
+#'   the repaired MD file will be written to md_out
 #' @autoglobal
 #' @noRd
 #'
@@ -55,6 +56,17 @@ fix_yaml_header <- function(md_in, md_out) {
   if (!any(stringr::str_detect(md_lines, "^\\*\\*\\*$"))) {
     fs::file_copy(md_in, md_out, overwrite = TRUE)
     return(TRUE)
+  }
+
+  # Check for YAML header that had no content between --- and ---
+  if (
+    md_lines[[1]] == "---" &&
+    md_lines[[2]] == "***" &&
+    md_lines[[3]] == "---"
+  ) {
+    md_lines <- md_lines[-2]
+    readr::write_lines(md_lines, md_out)
+    return(invisible(md_out))
   }
 
   yaml_head_start <- which(stringr::str_detect(md_lines, "^\\*\\*\\*$"))[[1]]
@@ -78,7 +90,7 @@ fix_yaml_header <- function(md_in, md_out) {
   md_lines[-(yaml_head_start:(yaml_head_end - 1))] %>%
     append(yaml_header_contents, after = 0) %>%
     readr::write_lines(md_out)
-
+    return(invisible(md_out))
 }
 
 #' Generate a custom error message for {assertr}
