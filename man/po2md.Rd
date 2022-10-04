@@ -4,7 +4,7 @@
 \alias{po2md}
 \title{Create a translated MD file from an input MD file and a PO file}
 \usage{
-po2md(md_in, po, md_out, wrap_width = 0, other_args = NULL)
+po2md(md_in, po, md_out, other_args = NULL)
 }
 \arguments{
 \item{md_in}{Character vector of length 1; path to existing MD file.}
@@ -13,9 +13,6 @@ po2md(md_in, po, md_out, wrap_width = 0, other_args = NULL)
 translation.}
 
 \item{md_out}{Character vector of length 1; path to write translated MD file.}
-
-\item{wrap_width}{Integer vector of length 1; number of characters
-to wrap lines in PO file. \code{0} (default) indicates no wrapping.}
 
 \item{other_args}{Character vector; other arguments used by
 \href{https://mdpo.readthedocs.io/en/master/cli.html#po2m}{po2md}.
@@ -37,16 +34,16 @@ and therefore requires Docker to be installed and running.
 # to a temporary file, check the first few lines, then delete it
 temp_md <- tempfile(fileext = "md")
 po2md(
-  md_in = system.file("extdata", "test_small.md", package = "dovetail"),
-  po = system.file("extdata", "test_small.ja.po", package = "dovetail"),
+  md_in = system.file("extdata", "test.Rmd", package = "dovetail"),
+  po = system.file("extdata", "test.ja.po", package = "dovetail"),
   md_out = temp_md
 )
-# first six lines of the original
-head(readLines(
-  system.file("extdata", "test_small.md", package = "dovetail")
+# last six lines of the original
+tail(readLines(
+  system.file("extdata", "test.Rmd", package = "dovetail")
 ))
-# first six lines of the translation
-head(readLines(temp_md))
+# last six lines of the translation
+tail(readLines(temp_md))
 unlink(temp_md)
 
 }

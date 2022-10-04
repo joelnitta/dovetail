@@ -1,7 +1,7 @@
 ---
-title: "Using RMarkdown"
-teaching: 10
 exercises: 2
+teaching: 10
+title: 'RMarkdown の使い方について'
 ---
 
 :::::::::::::::::::::::::::::::::::::: questions 
@@ -16,9 +16,9 @@ exercises: 2
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-## Introduction
+## はじめに
 
-This is a lesson.
+これはレッスンです。
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
 
@@ -56,16 +56,16 @@ You can add a line with at least three colons and a `solution` tag.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-## Figures
+## 図表
 
-You can also include R code:
+Rコードを書くことも出来ます：
 
 ```{r}
 #| label: pyramid
-#| fig.alt: pie chart illusion of a pyramid
-#| fig.cap: Sun arise each and every morning
+#| fig.alt: ピラミッドの錯覚
+#| fig.cap: 毎朝お日様が登ります
 pie(
-  c(Sky = 78, "Sunny side of pyramid" = 17, "Shady side of pyramid" = 5), 
+  c(Sky = 78, "ピラミッドの明るい方" = 17, "ピラミッドの影に入っている方" = 5), 
   init.angle = 315, 
   col = c("deepskyblue", "yellow", "yellow3"), 
   border = FALSE
@@ -74,7 +74,8 @@ pie(
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
-- Use `.md` files for episodes when you want static content
+
+  - エピソードの内容が変わらない場合は`.md`ファイルを使いましょう
 - Use `.Rmd` files for episodes when you need to generate output
 
 ::::::::::::::::::::::::::::::::::::::::::::::::

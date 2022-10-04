@@ -1,19 +1,17 @@
-test_that("Fixing empty yaml headers works", {
-  expect_snapshot_file(
-    fix_yaml_header(
-      md_in = system.file(
-        "extdata", "test_bad_yml_header_1.md", package = "dovetail"),
-      md_out = tempfile()
-    ),
-    "test_bad_yml_header_1_fixed.md"
+# Setup
+temp_po <- fs::path(tempdir(), "test.po")
+
+test_that("Removing header works", {
+  md2po(
+    system.file("extdata", "test.Rmd", package = "dovetail"),
+    po = temp_po
   )
+  exclude_header(temp_po)
   expect_snapshot_file(
-    fix_yaml_header(
-      md_in = system.file(
-        "extdata", "test_bad_yml_header_2.md", package = "dovetail"),
-      md_out = tempfile()
-    ),
-    "test_bad_yml_header_2_fixed.md"
+    temp_po,
+    "no_header.po"
   )
 })
 
+# Cleanup
+fs::file_delete(temp_po)

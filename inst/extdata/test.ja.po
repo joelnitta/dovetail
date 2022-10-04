@@ -1,0 +1,196 @@
+# SOME DESCRIPTIVE TITLE
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2022-10-04 02:14+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. type: YAML Front Matter: exercises
+#: /409952fb95fbb825992593fca10961ea_1/test.Rmd:1
+#, no-wrap
+msgid "2"
+msgstr ""
+
+#. type: YAML Front Matter: teaching
+#: /409952fb95fbb825992593fca10961ea_1/test.Rmd:1
+#, no-wrap
+msgid "10"
+msgstr ""
+
+#. type: YAML Front Matter: title
+#: /409952fb95fbb825992593fca10961ea_1/test.Rmd:1
+#, no-wrap
+msgid "Using RMarkdown"
+msgstr "RMarkdown の使い方について"
+
+#. type: Fenced div block (questions )
+#: /409952fb95fbb825992593fca10961ea_1/test.Rmd:7
+#, no-wrap
+msgid ""
+"\n"
+"- How do you write a lesson?\n"
+"\n"
+msgstr ""
+"\n"
+"- レッスンをどうやって書けば良いですか？\n"
+"\n"
+
+#. type: Fenced div block (objectives)
+#: /409952fb95fbb825992593fca10961ea_1/test.Rmd:13
+#, no-wrap
+msgid ""
+"\n"
+"- Write a lesson\n"
+"\n"
+msgstr ""
+"\n"
+"- レッスンを書きましょう\n"
+"\n"
+
+#. type: Title ##
+#: /409952fb95fbb825992593fca10961ea_1/test.Rmd:19
+#, markdown-text, no-wrap
+msgid "Introduction"
+msgstr "はじめに"
+
+#. type: Plain text
+#: /409952fb95fbb825992593fca10961ea_1/test.Rmd:22
+#, markdown-text
+msgid "This is a lesson."
+msgstr "これはレッスンです。"
+
+#. type: Fenced div block (instructor)
+#: /409952fb95fbb825992593fca10961ea_1/test.Rmd:23
+#, no-wrap
+msgid ""
+"\n"
+"Inline instructor notes\n"
+"\n"
+msgstr ""
+"\n"
+"インストラクター用メモ\n"
+"\n"
+
+#. type: Fenced div block (challenge )
+#: /409952fb95fbb825992593fca10961ea_1/test.Rmd:29
+#, no-wrap
+msgid ""
+"\n"
+"## Challenge 1: Can you do it?\n"
+"\n"
+"What is the output of this command?\n"
+"\n"
+"```r\n"
+"paste(\"This\", \"new\", \"lesson\", \"looks\", \"good\")\n"
+"```\n"
+"\n"
+":::::::::::::::::::::::: solution \n"
+"\n"
+"## Output\n"
+" \n"
+"```output\n"
+"[1] \"This new lesson looks good\"\n"
+"```\n"
+"\n"
+":::::::::::::::::::::::::::::::::\n"
+"\n"
+"## Challenge 2: how do you nest solutions within challenge blocks?\n"
+"\n"
+":::::::::::::::::::::::: solution \n"
+"\n"
+"You can add a line with at least three colons and a `solution` tag.\n"
+"\n"
+":::::::::::::::::::::::::::::::::\n"
+"\n"
+msgstr ""
+"\n"
+"## チャレンジの一：出来ますか？\n"
+"\n"
+"このコマンドの出力はなんでしょうか？\n"
+"\n"
+"```r\n"
+"paste(\"This\", \"new\", \"lesson\", \"looks\", \"good\")\n"
+"```\n"
+"\n"
+":::::::::::::::::::::::: solution \n"
+"\n"
+"## 出力\n"
+" \n"
+"```output\n"
+"[1] \"This new lesson looks good\"\n"
+"```\n"
+"\n"
+":::::::::::::::::::::::::::::::::\n"
+"\n"
+"## チャレンジの2: チャレンジブロックの中にどうやって正解を入れれば良いでしょうか？\n"
+"\n"
+":::::::::::::::::::::::: solution \n"
+"\n"
+"三つ以上のコロンから始まって、 `solution` タグで終わる行を加えれば出来ます。\n"
+"\n"
+":::::::::::::::::::::::::::::::::\n"
+"\n"
+
+#. type: Title ##
+#: /409952fb95fbb825992593fca10961ea_1/test.Rmd:59
+#, markdown-text, no-wrap
+msgid "Figures"
+msgstr "図表"
+
+#. type: Plain text
+#: /409952fb95fbb825992593fca10961ea_1/test.Rmd:62
+#, markdown-text
+msgid "You can also include R code:"
+msgstr "Rコードを書くことも出来ます："
+
+#. type: Fenced code block ({r})
+#: /409952fb95fbb825992593fca10961ea_1/test.Rmd:63
+#, no-wrap
+msgid ""
+"#| label: pyramid\n"
+"#| fig.alt: pie chart illusion of a pyramid\n"
+"#| fig.cap: Sun arise each and every morning\n"
+"pie(\n"
+"  c(Sky = 78, \"Sunny side of pyramid\" = 17, \"Shady side of pyramid\" = 5), \n"
+"  init.angle = 315, \n"
+"  col = c(\"deepskyblue\", \"yellow\", \"yellow3\"), \n"
+"  border = FALSE\n"
+")\n"
+msgstr ""
+"#| label: pyramid\n"
+"#| fig.alt: ピラミッドの錯覚\n"
+"#| fig.cap: 毎朝お日様が登ります\n"
+"pie(\n"
+"  c(Sky = 78, \"ピラミッドの明るい方\" = 17, \"ピラミッドの影に入っている方\" = 5), \n"
+"  init.angle = 315, \n"
+"  col = c(\"deepskyblue\", \"yellow\", \"yellow3\"), \n"
+"  border = FALSE\n"
+")\n"
+
+#. type: Bullet: '
+#. type: - '
+#: /409952fb95fbb825992593fca10961ea_1/test.Rmd:75
+#, markdown-text
+msgid "Use `.md` files for episodes when you want static content"
+msgstr "エピソードの内容が変わらない場合は`.md`ファイルを使いましょう"
+
+#. type: Fenced div block (keypoints )
+#: /409952fb95fbb825992593fca10961ea_1/test.Rmd:75
+#, no-wrap
+msgid ""
+"- Use `.Rmd` files for episodes when you need to generate output\n"
+"\n"
+msgstr ""
+"- コードによってエピソードの出力を作りたい場合は`.Rmd`ファイルを使いましょう\n"
+"\n"

@@ -6,7 +6,6 @@ utils::globalVariables(c(
   ".", # <translate_md_for_locale>
   "po_file", # <translate_md_for_locale>
   "md_path", # <translate_md_for_locale>
-  ".", # <fix_yaml_header>
   ".", # <find_md_files>
   "md_path", # <find_md_files>
   "md_file", # <find_md_files>

@@ -4,14 +4,7 @@
 \alias{translate_md}
 \title{Translate a single (R)Markdown file using a PO file}
 \usage{
-translate_md(
-  md_in,
-  po,
-  md_out,
-  wrap_width = 0,
-  other_args = NULL,
-  quiet = FALSE
-)
+translate_md(md_in, po, md_out, other_args = NULL, quiet = FALSE)
 }
 \arguments{
 \item{md_in}{Character vector of length 1; path to existing MD file.}
@@ -20,11 +13,8 @@ translate_md(
 
 \item{md_out}{Character vector of length 1; path to write translated MD file.}
 
-\item{wrap_width}{Integer vector of length 1; number of characters
-to wrap lines in PO file. \code{0} (default) indicates no wrapping.}
-
 \item{other_args}{Character vector; other arguments used by
-\href{https://mdpo.readthedocs.io/en/master/cli.html#md2po}{md2po}.
+\href{https://po4a.org/man/man1/po4a-updatepo.1.php}{po4a-updatepo}.
 Must be formatted like the \code{args} command used by \code{\link[processx:run]{processx::run()}}.}
 
 \item{quiet}{Logical; should messages from this function be suppressed?}

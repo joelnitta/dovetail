@@ -23,7 +23,7 @@
 #' }
 translate_md <- function(
   md_in, po, md_out,
-  wrap_width = 0, other_args = NULL, quiet = FALSE) {
+  other_args = NULL, quiet = FALSE) {
 
   temp_md <- tempfile()
 
@@ -31,12 +31,8 @@ translate_md <- function(
 
   po2md(
     md_in = md_in, po = po, md_out = temp_md,
-    wrap_width = wrap_width,
     other_args = other_args
   )
-
-  fix_yaml_header(
-    md_in = temp_md, md_out = md_out)
 
   fs::file_delete(temp_md)
 
