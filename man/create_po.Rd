@@ -4,31 +4,19 @@
 \alias{create_po}
 \title{Create a single PO file for translating a (R)markdown file}
 \usage{
-create_po(
-  md_in,
-  po,
-  wrap_width = 0,
-  include_codeblocks = TRUE,
-  other_args = NULL
-)
+create_po(md_in, po, other_args = NULL)
 }
 \arguments{
 \item{md_in}{Character vector of length 1; path to existing MD file.}
 
 \item{po}{Character vector of length 1; path to PO file to write.}
 
-\item{wrap_width}{Integer vector of length 1; number of characters
-to wrap lines in PO file. \code{0} (default) indicates no wrapping.}
-
-\item{include_codeblocks}{Logical vector of length 1; should code blocks
-be included in the PO file? Default \code{TRUE}.}
-
 \item{other_args}{Character vector; other arguments used by
-\href{https://mdpo.readthedocs.io/en/master/cli.html#md2po}{md2po}.
+\href{https://po4a.org/man/man1/po4a-updatepo.1.php}{po4a-updatepo}.
 Must be formatted like the \code{args} command used by \code{\link[processx:run]{processx::run()}}.}
 }
 \value{
-List with components formatted like the output of \code{\link[processx:run]{processx::run()}}.
+Path to the PO file.
 Externally, the PO file will be generated at the path specified by \code{po}.
 }
 \description{

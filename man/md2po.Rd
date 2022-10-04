@@ -4,18 +4,15 @@
 \alias{md2po}
 \title{Create a PO file from an MD file}
 \usage{
-md2po(md_in, po, wrap_width = 0, other_args = NULL)
+md2po(md_in, po, other_args = NULL)
 }
 \arguments{
 \item{md_in}{Character vector of length 1; path to existing MD file.}
 
 \item{po}{Character vector of length 1; path to PO file to write.}
 
-\item{wrap_width}{Integer vector of length 1; number of characters
-to wrap lines in PO file. \code{0} (default) indicates no wrapping.}
-
 \item{other_args}{Character vector; other arguments used by
-\href{https://mdpo.readthedocs.io/en/master/cli.html#md2po}{md2po}.
+\href{https://po4a.org/man/man1/po4a-updatepo.1.php}{po4a-updatepo}.
 Must be formatted like the \code{args} command used by \code{\link[processx:run]{processx::run()}}.}
 }
 \value{
@@ -24,8 +21,8 @@ Character vector of length 1; the path to the PO file specified by
 }
 \description{
 This is a wrapper around the
-\href{https://mdpo.readthedocs.io/en/master/cli.html#md2po}{md2po}
-command. It calls \code{md2po} from Docker,
+\href{https://po4a.org/man/man1/po4a-updatepo.1.php}{po4a-updatepo}
+command. It calls \code{po4a} from Docker,
 and therefore requires Docker to be installed and running.
 }
 \examples{
@@ -33,11 +30,10 @@ and therefore requires Docker to be installed and running.
 # to a temporary file, check the first few lines, then delete it
 temp_po <- tempfile(fileext = "po")
 md2po(
-  md_in = system.file("extdata", "test_small.md", package = "dovetail"),
-  po = temp_po,
-  other_args = "--nolocation"
+  md_in = system.file("extdata", "test.Rmd", package = "dovetail"),
+  po = temp_po
 )
-head(readLines(temp_po))
+tail(readLines(temp_po))
 unlink(temp_po)
 
 }

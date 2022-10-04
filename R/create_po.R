@@ -4,11 +4,10 @@
 #' automatically created.
 #'
 #' @inheritParams md2po
-#' @param include_codeblocks Logical vector of length 1; should code blocks
-#' be included in the PO file? Default `TRUE`.
 #'
-#' @return List with components formatted like the output of [processx::run()].
+#' @return Path to the PO file.
 #' Externally, the PO file will be generated at the path specified by `po`.
+#'
 #' @export
 #'
 #' @examples
@@ -24,8 +23,7 @@
 #' unlink(temp_po)
 #'
 create_po <- function(
-    md_in, po, wrap_width = 0,
-    include_codeblocks = TRUE,
+    md_in, po,
     other_args = NULL) {
 
   # Get path to output file
@@ -41,19 +39,15 @@ create_po <- function(
   md_lines <- exclude_fences(md_lines)
   readr::write_lines(md_lines, temp_md)
 
-  # Format arguments
-  codeblocks_arg <- NULL
-  if (isTRUE(include_codeblocks)) codeblocks_arg <- "-c"
-  other_args <- c(codeblocks_arg, other_args)
-
   # Make PO
-  md2po(
+  res <- md2po(
     md_in = temp_md, po = po,
-    wrap_width = wrap_width,
     other_args = other_args
   )
 
   # Delete temp file
   fs::file_delete(temp_md)
+
+  res
 
 }

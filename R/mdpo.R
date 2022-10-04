@@ -1,16 +1,14 @@
 #' Create a PO file from an MD file
 #'
 #' This is a wrapper around the
-#' [md2po](https://mdpo.readthedocs.io/en/master/cli.html#md2po)
-#' command. It calls `md2po` from Docker,
+#' [po4a-updatepo](https://po4a.org/man/man1/po4a-updatepo.1.php)
+#' command. It calls `po4a` from Docker,
 #' and therefore requires Docker to be installed and running.
 #'
 #' @param md_in Character vector of length 1; path to existing MD file.
 #' @param po Character vector of length 1; path to PO file to write.
-#' @param wrap_width Integer vector of length 1; number of characters
-#'   to wrap lines in PO file. `0` (default) indicates no wrapping.
 #' @param other_args Character vector; other arguments used by
-#'   [md2po](https://mdpo.readthedocs.io/en/master/cli.html#md2po).
+#'   [po4a-updatepo](https://po4a.org/man/man1/po4a-updatepo.1.php).
 #'   Must be formatted like the `args` command used by [processx::run()].
 #'
 #' @return Character vector of length 1; the path to the PO file specified by
@@ -21,28 +19,39 @@
 #' # to a temporary file, check the first few lines, then delete it
 #' temp_po <- tempfile(fileext = "po")
 #' md2po(
-#'   md_in = system.file("extdata", "test_small.md", package = "dovetail"),
-#'   po = temp_po,
-#'   other_args = "--nolocation"
+#'   md_in = system.file("extdata", "test.Rmd", package = "dovetail"),
+#'   po = temp_po
 #' )
-#' head(readLines(temp_po))
+#' tail(readLines(temp_po))
 #' unlink(temp_po)
 #'
 md2po <- function(
-  md_in, po, wrap_width = 0, other_args = NULL) {
+  md_in, po, other_args = NULL) {
   assertthat::assert_that(assertthat::is.readable(md_in))
   assertthat::assert_that(assertthat::is.string(po))
-  res <- run_auto_mount(
-    container_id = "joelnitta/mdpo:latest",
-    command = "md2po",
+
+  # docker will write as root in some cases
+  # to make sure po file has correct permissions,
+  # read-in / write-out with R
+  temp_file <- tempfile()
+
+  if (fs::file_exists(po)) fs::file_copy(po, temp_file)
+
+  run_auto_mount(
+    container_id = "joelnitta/po4a:latest",
+    command = "po4a-updatepo",
     args = c(
-      file = md_in,
-      "-po", file = po,
-      "--wrapwidth", wrap_width,
-      other_args
+      "-f", "text",
+      "-m", file = md_in,
+      "-p", file = temp_file,
+      c(
+        "-o", "markdown",
+        "--wrap-po", "newlines"
+      )
     )
   )
-  readr::write_lines(res$stdout, po)
+  po_lines <- readr::read_lines(temp_file)
+  readr::write_lines(po_lines, po)
   po
 }
 
@@ -70,31 +79,51 @@ md2po <- function(
 #' # to a temporary file, check the first few lines, then delete it
 #' temp_md <- tempfile(fileext = "md")
 #' po2md(
-#'   md_in = system.file("extdata", "test_small.md", package = "dovetail"),
-#'   po = system.file("extdata", "test_small.ja.po", package = "dovetail"),
+#'   md_in = system.file("extdata", "test.Rmd", package = "dovetail"),
+#'   po = system.file("extdata", "test.ja.po", package = "dovetail"),
 #'   md_out = temp_md
 #' )
-#' # first six lines of the original
-#' head(readLines(
-#'   system.file("extdata", "test_small.md", package = "dovetail")
+#' # last six lines of the original
+#' tail(readLines(
+#'   system.file("extdata", "test.Rmd", package = "dovetail")
 #' ))
-#' # first six lines of the translation
-#' head(readLines(temp_md))
+#' # last six lines of the translation
+#' tail(readLines(temp_md))
 #' unlink(temp_md)
 #'
 po2md <- function(
   md_in, po, md_out,
-  wrap_width = 0, other_args = NULL) {
+  other_args = NULL) {
+
+  assertthat::assert_that(assertthat::is.readable(md_in))
+  assertthat::assert_that(assertthat::is.readable(po))
+
+  # docker will write as root in some cases
+  # to make sure po file has correct permissions,
+  # read-in / write-out with R
+  temp_file <- tempfile()
+
   res <- run_auto_mount(
-    container_id = "joelnitta/mdpo:latest",
-    command = "po2md",
+    container_id = "joelnitta/po4a:latest",
+    command = "po4a-translate",
     args = c(
-      file = md_in,
-      "--pofiles", file = po,
-      "--wrapwidth", wrap_width,
+      "-f", "text",
+      "-m", file = md_in,
+      "-p", file = po,
+      "-l", file = temp_file,
+      "-o", "markdown",
+      "-k", 0, # don't require minimum number of translated lines
+      "--width", 1000,
+      "--wrap-po", "newlines",
       other_args
     )
   )
-  readr::write_lines(res$stdout, md_out)
+
+  if (res$status == 0 && res$stderr != "") {
+    stop(paste(res$stderr))
+  }
+
+  out_lines <- readr::read_lines(temp_file)
+  readr::write_lines(out_lines, md_out)
   md_out
 }
