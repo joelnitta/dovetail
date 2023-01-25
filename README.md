@@ -23,5 +23,6 @@ devtools::install_github("joelnitta/dovetail")
 
 ## Example
 
-For an example of translating a lesson, see the [buoyant-barnacle-dt
-repo](https://github.com/joelnitta/buoyant-barnacle-dt)
+For an example of translating a lesson, see the
+[r-intermediate-penguins-dt
+repo](https://github.com/joelnitta/r-intermediate-penguins-dt)
