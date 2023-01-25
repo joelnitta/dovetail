@@ -86,7 +86,7 @@ translate_md_for_locale <- function(lang) {
   # write the translated MD file to `locale/{lang}/{md_path}`
   purrr::pwalk(
     file_paths,
-    translate_md
+    po2md
   )
 
 }

@@ -39,7 +39,7 @@ create_po_for_locale <- function(lang) {
   purrr::walk2(
     .x = file_paths$md_path,
     .y = file_paths$po_path,
-    ~create_po(.x, .y)
+    ~md2po(.x, .y)
   )
 
 }
