@@ -30,6 +30,10 @@ md2po <- function(
   assertthat::assert_that(assertthat::is.readable(md_in))
   assertthat::assert_that(assertthat::is.string(po))
 
+  # Create output directory structure if it doesn't yet exist
+  po_path <- fs::path_dir(po)
+  fs::dir_create(po_path)
+
   # docker will write as root in some cases
   # to make sure po file has correct permissions,
   # read-in / write-out with R
