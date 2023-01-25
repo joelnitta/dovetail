@@ -1,17 +1,17 @@
 
-#. type: YAML Front Matter: exercises
+#. type: Yaml Front Matter Hash Value: exercises
 #: /409952fb95fbb825992593fca10961ea_1/test.Rmd:1
 #, no-wrap
 msgid "2"
 msgstr ""
 
-#. type: YAML Front Matter: teaching
+#. type: Yaml Front Matter Hash Value: teaching
 #: /409952fb95fbb825992593fca10961ea_1/test.Rmd:1
 #, no-wrap
 msgid "10"
 msgstr ""
 
-#. type: YAML Front Matter: title
+#. type: Yaml Front Matter Hash Value: title
 #: /409952fb95fbb825992593fca10961ea_1/test.Rmd:1
 #, no-wrap
 msgid "Using RMarkdown"
@@ -69,7 +69,12 @@ msgid ""
 "paste(\"This\", \"new\", \"lesson\", \"looks\", \"good\")\n"
 "```\n"
 "\n"
-":::::::::::::::::::::::: solution \n"
+msgstr ""
+
+#. type: Fenced div block (challenge |solution )
+#: /409952fb95fbb825992593fca10961ea_1/test.Rmd:29
+#, no-wrap
+msgid ""
 "\n"
 "## Output\n"
 " \n"
@@ -77,16 +82,30 @@ msgid ""
 "[1] \"This new lesson looks good\"\n"
 "```\n"
 "\n"
-":::::::::::::::::::::::::::::::::\n"
+msgstr ""
+
+#. type: Fenced div block (challenge |solution )
+#: /409952fb95fbb825992593fca10961ea_1/test.Rmd:29
+#, no-wrap
+msgid ""
 "\n"
 "## Challenge 2: how do you nest solutions within challenge blocks?\n"
 "\n"
-":::::::::::::::::::::::: solution \n"
+msgstr ""
+
+#. type: Fenced div block (challenge |solution )
+#: /409952fb95fbb825992593fca10961ea_1/test.Rmd:29
+#, no-wrap
+msgid ""
 "\n"
 "You can add a line with at least three colons and a `solution` tag.\n"
 "\n"
-":::::::::::::::::::::::::::::::::\n"
-"\n"
+msgstr ""
+
+#. type: Fenced div block (challenge )
+#: /409952fb95fbb825992593fca10961ea_1/test.Rmd:29
+#, no-wrap
+msgid "\n"
 msgstr ""
 
 #. type: Title ##
