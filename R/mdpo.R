@@ -47,7 +47,7 @@ md2po <- function(
 
   if (fs::file_exists(po)) fs::file_copy(po, temp_file)
 
-  run_auto_mount(
+  babelwhale::run_auto_mount(
     container_id = container_id,
     command = "po4a-updatepo",
     args = c(
@@ -120,7 +120,7 @@ po2md <- function(
   # read-in / write-out with R
   temp_file <- tempfile()
 
-  res <- run_auto_mount(
+  res <- babelwhale::run_auto_mount(
     container_id = container_id,
     command = "po4a-translate",
     args = c(
