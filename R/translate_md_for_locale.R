@@ -43,7 +43,8 @@
 #' }
 translate_md_for_locale <- function(
   lang,
-  container_id = "joelnitta/po4a") {
+  container_id = auto_choose_docker()
+  ) {
 
   po_lang_dir <- glue::glue("po/{lang}")
 

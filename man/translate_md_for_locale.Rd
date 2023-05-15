@@ -4,7 +4,7 @@
 \alias{translate_md_for_locale}
 \title{Translate a set of (R)Markdown files using PO files}
 \usage{
-translate_md_for_locale(lang, container_id = "joelnitta/po4a")
+translate_md_for_locale(lang, container_id = auto_choose_docker())
 }
 \arguments{
 \item{lang}{Name of language. Should be formatted as

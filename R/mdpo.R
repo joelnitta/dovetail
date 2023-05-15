@@ -30,7 +30,9 @@
 #' unlink(temp_po)
 #'
 md2po <- function(
-  md_in, po, container_id = "joelnitta/po4a:latest", other_args = NULL) {
+  md_in, po,
+  container_id = auto_choose_docker(),
+  other_args = NULL) {
 
   assertthat::assert_that(assertthat::is.readable(md_in))
   assertthat::assert_that(assertthat::is.string(po))
@@ -108,7 +110,7 @@ md2po <- function(
 #'
 po2md <- function(
   md_in, po, md_out,
-  container_id = "joelnitta/po4a:latest",
+  container_id = auto_choose_docker(),
   other_args = NULL) {
 
   assertthat::assert_that(assertthat::is.readable(md_in))

@@ -4,7 +4,7 @@
 \alias{create_po_for_locale}
 \title{Create all PO files needed for a given locale}
 \usage{
-create_po_for_locale(lang, container_id = "joelnitta/po4a")
+create_po_for_locale(lang, container_id = auto_choose_docker())
 }
 \arguments{
 \item{lang}{Name of language. Should be formatted as

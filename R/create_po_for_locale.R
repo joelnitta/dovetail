@@ -18,7 +18,8 @@
 #' }
 create_po_for_locale <- function(
   lang,
-  container_id = "joelnitta/po4a") {
+  container_id = auto_choose_docker()
+  ) {
 
   assertthat::assert_that(
     assertthat::is.string(lang)
