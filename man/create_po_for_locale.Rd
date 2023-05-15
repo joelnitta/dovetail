@@ -4,7 +4,7 @@
 \alias{create_po_for_locale}
 \title{Create all PO files needed for a given locale}
 \usage{
-create_po_for_locale(lang)
+create_po_for_locale(lang, container_id = "joelnitta/po4a")
 }
 \arguments{
 \item{lang}{Name of language. Should be formatted as
@@ -13,6 +13,9 @@ OR the language code followed by an underscore and the
 \href{https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2}{ISO 3166 two-letter country code}
 for region-specific translations. Should be
 lowercase.}
+
+\item{container_id}{Character vector of length 1;
+name of Docker container that includes po4a to run.}
 }
 \value{
 Nothing; externally, one or more PO files will be written to

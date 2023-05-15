@@ -1,4 +1,3 @@
-
 #' Translate a set of (R)Markdown files using PO files
 #'
 #' This calls `md2po` from Docker,
@@ -28,6 +27,7 @@
 #' The easiest way to generate PO files meeting these requirements is to use
 #' [create_po_for_locale()] first.
 #'
+#' @inheritParams md2po
 #' @inheritParams create_locale
 #' @autoglobal
 #' @return Nothing; externally, translated (R)Markdown files will be written
@@ -41,7 +41,9 @@
 #' # folder has been set up.
 #' translate_md_for_locale("ja")
 #' }
-translate_md_for_locale <- function(lang) {
+translate_md_for_locale <- function(
+  lang,
+  container_id = "joelnitta/po4a") {
 
   po_lang_dir <- glue::glue("po/{lang}")
 
@@ -49,6 +51,9 @@ translate_md_for_locale <- function(lang) {
 
   assertthat::assert_that(fs::dir_exists(po_lang_dir))
   assertthat::assert_that(fs::dir_exists(locale_lang_dir))
+  assertthat::assert_that(
+    assertthat::is.string(container_id)
+  )
 
   # Make tibble of matching PO and md files
   file_paths <-
@@ -86,7 +91,8 @@ translate_md_for_locale <- function(lang) {
   # write the translated MD file to `locale/{lang}/{md_path}`
   purrr::pwalk(
     file_paths,
-    po2md
+    po2md,
+    container_id = container_id
   )
 
 }
