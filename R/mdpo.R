@@ -5,8 +5,12 @@
 #' command. It calls `po4a` from Docker,
 #' and therefore requires Docker to be installed and running.
 #'
+#' To run on arm64 machines, use `container_id` joelnitta/po4a-arm64:latest.
+#'
 #' @param md_in Character vector of length 1; path to existing MD file.
 #' @param po Character vector of length 1; path to PO file to write.
+#' @param container_id Character vector of length 1;
+#'   name of Docker container that includes po4a to run.
 #' @param other_args Character vector; other arguments used by
 #'   [po4a-updatepo](https://po4a.org/man/man1/po4a-updatepo.1.php).
 #'   Must be formatted like the `args` command used by [processx::run()].
@@ -26,9 +30,11 @@
 #' unlink(temp_po)
 #'
 md2po <- function(
-  md_in, po, other_args = NULL) {
+  md_in, po, container_id = "joelnitta/po4a:latest", other_args = NULL) {
+
   assertthat::assert_that(assertthat::is.readable(md_in))
   assertthat::assert_that(assertthat::is.string(po))
+  assertthat::assert_that(assertthat::is.string(container_id))
 
   # Create output directory structure if it doesn't yet exist
   po_path <- fs::path_dir(po)
@@ -42,7 +48,7 @@ md2po <- function(
   if (fs::file_exists(po)) fs::file_copy(po, temp_file)
 
   run_auto_mount(
-    container_id = "joelnitta/po4a:latest",
+    container_id = container_id,
     command = "po4a-updatepo",
     args = c(
       "-f", "text",
@@ -51,7 +57,8 @@ md2po <- function(
       c(
         "-o", "markdown",
         "--wrap-po", "newlines"
-      )
+      ),
+      other_args
     )
   )
   po_lines <- readr::read_lines(temp_file)
@@ -66,10 +73,14 @@ md2po <- function(
 #' command. It calls `po2md` from Docker,
 #' and therefore requires Docker to be installed and running.
 #'
+#' To run on arm64 machines, use `container_id` joelnitta/po4a-arm64:latest.
+#'
 #' @inheritParams md2po
 #' @param po Character vector of length 1; path to PO file to use for
 #'   translation.
 #' @param md_out Character vector of length 1; path to write translated MD file.
+#' @param container_id Character vector of length 1;
+#'   name of Docker container that includes po4a to run.
 #' @param other_args Character vector; other arguments used by
 #'   [po2md](https://mdpo.readthedocs.io/en/master/cli.html#po2m).
 #'   Must be formatted like the `args` command used by [processx::run()].
@@ -97,10 +108,12 @@ md2po <- function(
 #'
 po2md <- function(
   md_in, po, md_out,
+  container_id = "joelnitta/po4a:latest",
   other_args = NULL) {
 
   assertthat::assert_that(assertthat::is.readable(md_in))
   assertthat::assert_that(assertthat::is.readable(po))
+  assertthat::assert_that(assertthat::is.string(container_id))
 
   # docker will write as root in some cases
   # to make sure po file has correct permissions,
@@ -108,7 +121,7 @@ po2md <- function(
   temp_file <- tempfile()
 
   res <- run_auto_mount(
-    container_id = "joelnitta/po4a:latest",
+    container_id = container_id,
     command = "po4a-translate",
     args = c(
       "-f", "text",

@@ -4,7 +4,13 @@
 \alias{po2md}
 \title{Create a translated MD file from an input MD file and a PO file}
 \usage{
-po2md(md_in, po, md_out, other_args = NULL)
+po2md(
+  md_in,
+  po,
+  md_out,
+  container_id = "joelnitta/po4a:latest",
+  other_args = NULL
+)
 }
 \arguments{
 \item{md_in}{Character vector of length 1; path to existing MD file.}
@@ -13,6 +19,9 @@ po2md(md_in, po, md_out, other_args = NULL)
 translation.}
 
 \item{md_out}{Character vector of length 1; path to write translated MD file.}
+
+\item{container_id}{Character vector of length 1;
+name of Docker container that includes po4a to run.}
 
 \item{other_args}{Character vector; other arguments used by
 \href{https://mdpo.readthedocs.io/en/master/cli.html#po2m}{po2md}.
@@ -28,6 +37,9 @@ This is a wrapper around the
 \href{https://mdpo.readthedocs.io/en/master/cli.html#po2md}{po2md}
 command. It calls \code{po2md} from Docker,
 and therefore requires Docker to be installed and running.
+}
+\details{
+To run on arm64 machines, use \code{container_id} joelnitta/po4a-arm64:latest.
 }
 \examples{
 # Translate an MD file using example MD and PO file with this package

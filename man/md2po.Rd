@@ -4,12 +4,15 @@
 \alias{md2po}
 \title{Create a PO file from an MD file}
 \usage{
-md2po(md_in, po, other_args = NULL)
+md2po(md_in, po, container_id = "joelnitta/po4a:latest", other_args = NULL)
 }
 \arguments{
 \item{md_in}{Character vector of length 1; path to existing MD file.}
 
 \item{po}{Character vector of length 1; path to PO file to write.}
+
+\item{container_id}{Character vector of length 1;
+name of Docker container that includes po4a to run.}
 
 \item{other_args}{Character vector; other arguments used by
 \href{https://po4a.org/man/man1/po4a-updatepo.1.php}{po4a-updatepo}.
@@ -24,6 +27,9 @@ This is a wrapper around the
 \href{https://po4a.org/man/man1/po4a-updatepo.1.php}{po4a-updatepo}
 command. It calls \code{po4a} from Docker,
 and therefore requires Docker to be installed and running.
+}
+\details{
+To run on arm64 machines, use \code{container_id} joelnitta/po4a-arm64:latest.
 }
 \examples{
 # Write a PO file based on the example MD file in this package
