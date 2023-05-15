@@ -1,24 +1,24 @@
 
 #. type: Yaml Front Matter Hash Value: exercises
-#: /409952fb95fbb825992593fca10961ea_1/test.Rmd:1
+#: /9fe70bf4bfec907b9b9fab7084eb1aeb_1/test.Rmd:1
 #, no-wrap
 msgid "2"
 msgstr ""
 
 #. type: Yaml Front Matter Hash Value: teaching
-#: /409952fb95fbb825992593fca10961ea_1/test.Rmd:1
+#: /9fe70bf4bfec907b9b9fab7084eb1aeb_1/test.Rmd:1
 #, no-wrap
 msgid "10"
 msgstr ""
 
 #. type: Yaml Front Matter Hash Value: title
-#: /409952fb95fbb825992593fca10961ea_1/test.Rmd:1
+#: /9fe70bf4bfec907b9b9fab7084eb1aeb_1/test.Rmd:1
 #, no-wrap
 msgid "Using RMarkdown"
 msgstr ""
 
 #. type: Fenced div block (questions )
-#: /409952fb95fbb825992593fca10961ea_1/test.Rmd:7
+#: /9fe70bf4bfec907b9b9fab7084eb1aeb_1/test.Rmd:7
 #, no-wrap
 msgid ""
 "\n"
@@ -27,7 +27,7 @@ msgid ""
 msgstr ""
 
 #. type: Fenced div block (objectives)
-#: /409952fb95fbb825992593fca10961ea_1/test.Rmd:13
+#: /9fe70bf4bfec907b9b9fab7084eb1aeb_1/test.Rmd:13
 #, no-wrap
 msgid ""
 "\n"
@@ -36,19 +36,19 @@ msgid ""
 msgstr ""
 
 #. type: Title ##
-#: /409952fb95fbb825992593fca10961ea_1/test.Rmd:19
+#: /9fe70bf4bfec907b9b9fab7084eb1aeb_1/test.Rmd:19
 #, markdown-text, no-wrap
 msgid "Introduction"
 msgstr ""
 
 #. type: Plain text
-#: /409952fb95fbb825992593fca10961ea_1/test.Rmd:22
+#: /9fe70bf4bfec907b9b9fab7084eb1aeb_1/test.Rmd:22
 #, markdown-text
 msgid "This is a lesson."
 msgstr ""
 
 #. type: Fenced div block (instructor)
-#: /409952fb95fbb825992593fca10961ea_1/test.Rmd:23
+#: /9fe70bf4bfec907b9b9fab7084eb1aeb_1/test.Rmd:23
 #, no-wrap
 msgid ""
 "\n"
@@ -57,7 +57,7 @@ msgid ""
 msgstr ""
 
 #. type: Fenced div block (challenge )
-#: /409952fb95fbb825992593fca10961ea_1/test.Rmd:29
+#: /9fe70bf4bfec907b9b9fab7084eb1aeb_1/test.Rmd:29
 #, no-wrap
 msgid ""
 "\n"
@@ -72,7 +72,7 @@ msgid ""
 msgstr ""
 
 #. type: Fenced div block (challenge |solution )
-#: /409952fb95fbb825992593fca10961ea_1/test.Rmd:29
+#: /9fe70bf4bfec907b9b9fab7084eb1aeb_1/test.Rmd:29
 #, no-wrap
 msgid ""
 "\n"
@@ -85,7 +85,7 @@ msgid ""
 msgstr ""
 
 #. type: Fenced div block (challenge |solution )
-#: /409952fb95fbb825992593fca10961ea_1/test.Rmd:29
+#: /9fe70bf4bfec907b9b9fab7084eb1aeb_1/test.Rmd:29
 #, no-wrap
 msgid ""
 "\n"
@@ -94,7 +94,7 @@ msgid ""
 msgstr ""
 
 #. type: Fenced div block (challenge |solution )
-#: /409952fb95fbb825992593fca10961ea_1/test.Rmd:29
+#: /9fe70bf4bfec907b9b9fab7084eb1aeb_1/test.Rmd:29
 #, no-wrap
 msgid ""
 "\n"
@@ -103,25 +103,25 @@ msgid ""
 msgstr ""
 
 #. type: Fenced div block (challenge )
-#: /409952fb95fbb825992593fca10961ea_1/test.Rmd:29
+#: /9fe70bf4bfec907b9b9fab7084eb1aeb_1/test.Rmd:29
 #, no-wrap
 msgid "\n"
 msgstr ""
 
 #. type: Title ##
-#: /409952fb95fbb825992593fca10961ea_1/test.Rmd:59
+#: /9fe70bf4bfec907b9b9fab7084eb1aeb_1/test.Rmd:59
 #, markdown-text, no-wrap
 msgid "Figures"
 msgstr ""
 
 #. type: Plain text
-#: /409952fb95fbb825992593fca10961ea_1/test.Rmd:62
+#: /9fe70bf4bfec907b9b9fab7084eb1aeb_1/test.Rmd:62
 #, markdown-text
 msgid "You can also include R code:"
 msgstr ""
 
 #. type: Fenced code block ({r})
-#: /409952fb95fbb825992593fca10961ea_1/test.Rmd:63
+#: /9fe70bf4bfec907b9b9fab7084eb1aeb_1/test.Rmd:63
 #, no-wrap
 msgid ""
 "#| label: pyramid\n"
@@ -137,13 +137,13 @@ msgstr ""
 
 #. type: Bullet: '
 #. type: - '
-#: /409952fb95fbb825992593fca10961ea_1/test.Rmd:75
+#: /9fe70bf4bfec907b9b9fab7084eb1aeb_1/test.Rmd:75
 #, markdown-text
 msgid "Use `.md` files for episodes when you want static content"
 msgstr ""
 
 #. type: Fenced div block (keypoints )
-#: /409952fb95fbb825992593fca10961ea_1/test.Rmd:75
+#: /9fe70bf4bfec907b9b9fab7084eb1aeb_1/test.Rmd:75
 #, no-wrap
 msgid ""
 "- Use `.Rmd` files for episodes when you need to generate output\n"
