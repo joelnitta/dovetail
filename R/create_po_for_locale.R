@@ -5,6 +5,7 @@
 #' into that language.
 #'
 #' @inheritParams create_locale
+#' @inheritParams md2po
 #' @autoglobal
 #' @return Nothing; externally, one or more PO files will be written to
 #' `./po/{lang}`.
@@ -15,10 +16,16 @@
 #' # carpentries lesson.
 #' create_po_for_locale("ja")
 #' }
-create_po_for_locale <- function(lang) {
+create_po_for_locale <- function(
+  lang,
+  container_id = "joelnitta/po4a") {
 
   assertthat::assert_that(
     assertthat::is.string(lang)
+  )
+
+  assertthat::assert_that(
+    assertthat::is.string(container_id)
   )
 
   po_lang_dir <- glue::glue("po/{lang}")
@@ -39,7 +46,7 @@ create_po_for_locale <- function(lang) {
   purrr::walk2(
     .x = file_paths$md_path,
     .y = file_paths$po_path,
-    ~md2po(.x, .y)
+    ~md2po(.x, .y, container_id = container_id)
   )
 
 }
