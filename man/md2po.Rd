@@ -4,7 +4,7 @@
 \alias{md2po}
 \title{Create a PO file from an MD file}
 \usage{
-md2po(md_in, po, container_id = "joelnitta/po4a:latest", other_args = NULL)
+md2po(md_in, po, container_id = auto_choose_docker(), other_args = NULL)
 }
 \arguments{
 \item{md_in}{Character vector of length 1; path to existing MD file.}

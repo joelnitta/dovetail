@@ -1,24 +1,24 @@
 
-#. type: YAML Front Matter: exercises
-#: /babelwhale/409952fb95fbb825992593fca10961ea/Users/joelnitta/repos/dovetail/inst/extdata/test.Rmd:1
+#. type: Yaml Front Matter Hash Value: exercises
+#: /babelwhale/9fe70bf4bfec907b9b9fab7084eb1aeb/Users/joelnitta/repos/dovetail/inst/extdata/test.Rmd:1
 #, no-wrap
 msgid "2"
 msgstr ""
 
-#. type: YAML Front Matter: teaching
-#: /babelwhale/409952fb95fbb825992593fca10961ea/Users/joelnitta/repos/dovetail/inst/extdata/test.Rmd:1
+#. type: Yaml Front Matter Hash Value: teaching
+#: /babelwhale/9fe70bf4bfec907b9b9fab7084eb1aeb/Users/joelnitta/repos/dovetail/inst/extdata/test.Rmd:1
 #, no-wrap
 msgid "10"
 msgstr ""
 
-#. type: YAML Front Matter: title
-#: /babelwhale/409952fb95fbb825992593fca10961ea/Users/joelnitta/repos/dovetail/inst/extdata/test.Rmd:1
+#. type: Yaml Front Matter Hash Value: title
+#: /babelwhale/9fe70bf4bfec907b9b9fab7084eb1aeb/Users/joelnitta/repos/dovetail/inst/extdata/test.Rmd:1
 #, no-wrap
 msgid "Using RMarkdown"
 msgstr ""
 
 #. type: Fenced div block (questions )
-#: /babelwhale/409952fb95fbb825992593fca10961ea/Users/joelnitta/repos/dovetail/inst/extdata/test.Rmd:7
+#: /babelwhale/9fe70bf4bfec907b9b9fab7084eb1aeb/Users/joelnitta/repos/dovetail/inst/extdata/test.Rmd:7
 #, no-wrap
 msgid ""
 "\n"
@@ -27,7 +27,7 @@ msgid ""
 msgstr ""
 
 #. type: Fenced div block (objectives)
-#: /babelwhale/409952fb95fbb825992593fca10961ea/Users/joelnitta/repos/dovetail/inst/extdata/test.Rmd:13
+#: /babelwhale/9fe70bf4bfec907b9b9fab7084eb1aeb/Users/joelnitta/repos/dovetail/inst/extdata/test.Rmd:13
 #, no-wrap
 msgid ""
 "\n"
@@ -36,19 +36,19 @@ msgid ""
 msgstr ""
 
 #. type: Title ##
-#: /babelwhale/409952fb95fbb825992593fca10961ea/Users/joelnitta/repos/dovetail/inst/extdata/test.Rmd:19
+#: /babelwhale/9fe70bf4bfec907b9b9fab7084eb1aeb/Users/joelnitta/repos/dovetail/inst/extdata/test.Rmd:19
 #, markdown-text, no-wrap
 msgid "Introduction"
 msgstr ""
 
 #. type: Plain text
-#: /babelwhale/409952fb95fbb825992593fca10961ea/Users/joelnitta/repos/dovetail/inst/extdata/test.Rmd:22
+#: /babelwhale/9fe70bf4bfec907b9b9fab7084eb1aeb/Users/joelnitta/repos/dovetail/inst/extdata/test.Rmd:22
 #, markdown-text
 msgid "This is a lesson."
 msgstr ""
 
 #. type: Fenced div block (instructor)
-#: /babelwhale/409952fb95fbb825992593fca10961ea/Users/joelnitta/repos/dovetail/inst/extdata/test.Rmd:23
+#: /babelwhale/9fe70bf4bfec907b9b9fab7084eb1aeb/Users/joelnitta/repos/dovetail/inst/extdata/test.Rmd:23
 #, no-wrap
 msgid ""
 "\n"
@@ -57,7 +57,7 @@ msgid ""
 msgstr ""
 
 #. type: Fenced div block (challenge )
-#: /babelwhale/409952fb95fbb825992593fca10961ea/Users/joelnitta/repos/dovetail/inst/extdata/test.Rmd:29
+#: /babelwhale/9fe70bf4bfec907b9b9fab7084eb1aeb/Users/joelnitta/repos/dovetail/inst/extdata/test.Rmd:29
 #, no-wrap
 msgid ""
 "\n"
@@ -69,7 +69,12 @@ msgid ""
 "paste(\"This\", \"new\", \"lesson\", \"looks\", \"good\")\n"
 "```\n"
 "\n"
-":::::::::::::::::::::::: solution \n"
+msgstr ""
+
+#. type: Fenced div block (challenge |solution )
+#: /babelwhale/9fe70bf4bfec907b9b9fab7084eb1aeb/Users/joelnitta/repos/dovetail/inst/extdata/test.Rmd:29
+#, no-wrap
+msgid ""
 "\n"
 "## Output\n"
 " \n"
@@ -77,32 +82,46 @@ msgid ""
 "[1] \"This new lesson looks good\"\n"
 "```\n"
 "\n"
-":::::::::::::::::::::::::::::::::\n"
+msgstr ""
+
+#. type: Fenced div block (challenge |solution )
+#: /babelwhale/9fe70bf4bfec907b9b9fab7084eb1aeb/Users/joelnitta/repos/dovetail/inst/extdata/test.Rmd:29
+#, no-wrap
+msgid ""
 "\n"
 "## Challenge 2: how do you nest solutions within challenge blocks?\n"
 "\n"
-":::::::::::::::::::::::: solution \n"
+msgstr ""
+
+#. type: Fenced div block (challenge |solution )
+#: /babelwhale/9fe70bf4bfec907b9b9fab7084eb1aeb/Users/joelnitta/repos/dovetail/inst/extdata/test.Rmd:29
+#, no-wrap
+msgid ""
 "\n"
 "You can add a line with at least three colons and a `solution` tag.\n"
 "\n"
-":::::::::::::::::::::::::::::::::\n"
-"\n"
+msgstr ""
+
+#. type: Fenced div block (challenge )
+#: /babelwhale/9fe70bf4bfec907b9b9fab7084eb1aeb/Users/joelnitta/repos/dovetail/inst/extdata/test.Rmd:29
+#, no-wrap
+msgid "\n"
 msgstr ""
 
 #. type: Title ##
-#: /babelwhale/409952fb95fbb825992593fca10961ea/Users/joelnitta/repos/dovetail/inst/extdata/test.Rmd:59
+#: /babelwhale/9fe70bf4bfec907b9b9fab7084eb1aeb/Users/joelnitta/repos/dovetail/inst/extdata/test.Rmd:59
 #, markdown-text, no-wrap
 msgid "Figures"
 msgstr ""
 
 #. type: Plain text
-#: /babelwhale/409952fb95fbb825992593fca10961ea/Users/joelnitta/repos/dovetail/inst/extdata/test.Rmd:62
+#: /babelwhale/9fe70bf4bfec907b9b9fab7084eb1aeb/Users/joelnitta/repos/dovetail/inst/extdata/test.Rmd:62
 #, markdown-text
 msgid "You can also include R code:"
 msgstr ""
 
 #. type: Fenced code block ({r})
-#: /babelwhale/409952fb95fbb825992593fca10961ea/Users/joelnitta/repos/dovetail/inst/extdata/test.Rmd:63
+#: /babelwhale/9fe70bf4bfec907b9b9fab7084eb1aeb/Users/joelnitta/repos/dovetail/inst/extdata/test.Rmd:63
 #, no-wrap
 msgid ""
 "#| label: pyramid\n"
@@ -118,13 +137,13 @@ msgstr ""
 
 #. type: Bullet: '
 #. type: - '
-#: /babelwhale/409952fb95fbb825992593fca10961ea/Users/joelnitta/repos/dovetail/inst/extdata/test.Rmd:75
+#: /babelwhale/9fe70bf4bfec907b9b9fab7084eb1aeb/Users/joelnitta/repos/dovetail/inst/extdata/test.Rmd:75
 #, markdown-text
 msgid "Use `.md` files for episodes when you want static content"
 msgstr ""
 
 #. type: Fenced div block (keypoints )
-#: /babelwhale/409952fb95fbb825992593fca10961ea/Users/joelnitta/repos/dovetail/inst/extdata/test.Rmd:75
+#: /babelwhale/9fe70bf4bfec907b9b9fab7084eb1aeb/Users/joelnitta/repos/dovetail/inst/extdata/test.Rmd:75
 #, no-wrap
 msgid ""
 "- Use `.Rmd` files for episodes when you need to generate output\n"

@@ -8,7 +8,7 @@ po2md(
   md_in,
   po,
   md_out,
-  container_id = "joelnitta/po4a:latest",
+  container_id = auto_choose_docker(),
   other_args = NULL
 )
 }
