@@ -11,7 +11,7 @@ render_trans(
   lang,
   clean = TRUE,
   preview = TRUE,
-  rsync_args = NULL
+  include_glob = NULL
 )
 }
 \arguments{
@@ -32,8 +32,10 @@ translation branch will be checked out from the remote. Default: \code{TRUE}.}
 \item{preview}{Logical; should the translated webpage be opened in a
 browser window? Default: \code{TRUE}.}
 
-\item{rsync_args}{Character string; additional commands to use for rsync
-when copying the translated files into the source folder}
+\item{include_glob}{Character; only files with names matching one or more
+strings in this character vector will be translated. Use to limit the
+files for translation. Default: \code{NULL} (all files with translations
+available will be translated).}
 }
 \value{
 Nothing. This is typically called for its side-effect of rendering

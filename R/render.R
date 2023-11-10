@@ -31,8 +31,10 @@
 #' translation branch will be checked out from the remote. Default: `TRUE`.
 #' @param preview Logical; should the translated webpage be opened in a
 #' browser window? Default: `TRUE`.
-#' @param rsync_args Character string; additional commands to use for rsync
-#' when copying the translated files into the source folder
+#' @param include_glob Character; only files with names matching one or more
+#' strings in this character vector will be translated. Use to limit the
+#' files for translation. Default: `NULL` (all files with translations
+#' available will be translated).
 #'
 #' @return Nothing. This is typically called for its side-effect of rendering
 #' a translated webpage. The webpage will be written to the `site` folder of
@@ -45,7 +47,7 @@ render_trans <- function(
     lang,
     clean = TRUE,
     preview = TRUE,
-    rsync_args = NULL) {
+    include_glob = NULL) {
   # Checks ---
   # - lesson_dir is folder
   assertthat::assert_that(
@@ -157,20 +159,21 @@ render_trans <- function(
     )
   )
 
-  # Use rsync to update files with translations
-  if (!is.null(include_filter)) {
-    assertthat::assert_that(
-      assertthat::is.string(include_filter)
+  include_args <- NULL
+  if (!is.null(include_glob)) {
+    assertthat::assert_that(is.character(include_glob))
+    include_args <- c(
+      "--include='*/'",
+      paste0("--include='", include_glob, "'"),
+      "--exclude='*'"
     )
-    include_filter <- sprintf("--include='%s'", include_filter)
-    include_filter <- c(include_filter, "--exclude='*'")
   }
 
   system2(
     "rsync",
     c(
       "-av",
-      rsync_args,
+      include_args,
       # need trailing slash to copy *contents* of folders
       paste0(fs::path_abs(lesson_lang_dir), "/"),
       paste0(fs::path_abs(temp_dir), "/")
