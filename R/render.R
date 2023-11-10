@@ -31,6 +31,8 @@
 #' branch will be checked out from the remote. Default: `TRUE`.
 #' @param preview Logical; should the translated webpage be opened in a
 #' browser window? Default: `TRUE`.
+#' @param rsync_args Character string; additional commands to use for rsync
+#' when copying the translated files into the source folder
 #'
 #' @return Nothing. This is typically called for its side-effect of rendering
 #' a translated webpage. The webpage will be written to the `site` folder of
@@ -42,7 +44,8 @@ render_trans <- function(
     main_branch = "main",
     lang,
     clean_start = TRUE,
-    preview = TRUE) {
+    preview = TRUE,
+    rsync_args = NULL) {
   # Checks ---
   # - lesson_dir is folder
   assertthat::assert_that(
@@ -73,7 +76,7 @@ render_trans <- function(
   # - l10n_branch in remote
   remote_branches <- gert::git_branch_list(local = FALSE, repo = lesson_dir)
   assertthat::assert_that(
-    l10n_branch %in% remote_branches$name,
+    any(grepl(l10n_branch, remote_branches$name, fixed = TRUE)),
     msg = sprintf(
       "'%s' not detected in branches of remote lesson repo",
       l10n_branch
@@ -97,6 +100,30 @@ render_trans <- function(
   )
   assertthat::assert_that(
     assertthat::is.flag(preview)
+  )
+
+  # Make a temp dir for writing lesson
+  temp_dir <- fs::path(
+    tempdir(),
+    # Name folder by most recent commit in l10n branch
+    gert::git_commit_info(main_branch, lesson_dir)$id
+  )
+
+  if (fs::dir_exists(temp_dir)) {
+    fs::dir_delete(temp_dir)
+  }
+
+  fs::dir_create(temp_dir)
+
+  # Copy source lang files to temp dir
+  system2(
+    "rsync",
+    c(
+      "-a",
+      # need trailing slash to copy *contents* of folders
+      paste0(fs::path_abs(lesson_dir), "/"),
+      paste0(fs::path_abs(temp_dir), "/")
+    )
   )
 
   # Clean start: delete existing l10n branch (so we can check it out fresh)
@@ -130,36 +157,22 @@ render_trans <- function(
     )
   )
 
-  # Make a temp dir for writing lesson
-  temp_dir <- fs::path(
-    tempdir(),
-    # Name folder by most recent commit in l10n branch
-    gert::git_commit_info(l10n_branch, lesson_dir)$id
-  )
-
-  if (fs::dir_exists(temp_dir)) {
-    fs::dir_delete(temp_dir)
-  } else {
-    fs::dir_create(temp_dir)
+  # Use rsync to update files with translations
+  if (!is.null(include_filter)) {
+    assertthat::assert_that(
+      assertthat::is.string(include_filter)
+    )
+    include_filter <- sprintf("--include='%s'", include_filter)
+    include_filter <- c(include_filter, "--exclude='*'")
   }
 
-  # Copy all translated files to dir with translated lesson
-  fs::dir_copy(lesson_lang_dir, temp_dir)
-
-  # Switch back to main
-  gert::git_branch_checkout(
-    branch = main_branch,
-    repo = lesson_dir
-  )
-
-  # Use rsync to copy any remaining files
   system2(
     "rsync",
     c(
-      "-a",
-      "--ignore-existing",
+      "-av",
+      rsync_args,
       # need trailing slash to copy *contents* of folders
-      paste0(fs::path_abs(lesson_dir), "/"),
+      paste0(fs::path_abs(lesson_lang_dir), "/"),
       paste0(fs::path_abs(temp_dir), "/")
     )
   )

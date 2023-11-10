@@ -10,7 +10,8 @@ render_trans(
   main_branch = "main",
   lang,
   clean_start = TRUE,
-  preview = TRUE
+  preview = TRUE,
+  rsync_args = NULL
 )
 }
 \arguments{
@@ -30,6 +31,9 @@ branch will be checked out from the remote. Default: \code{TRUE}.}
 
 \item{preview}{Logical; should the translated webpage be opened in a
 browser window? Default: \code{TRUE}.}
+
+\item{rsync_args}{Character string; additional commands to use for rsync
+when copying the translated files into the source folder}
 }
 \value{
 Nothing. This is typically called for its side-effect of rendering
