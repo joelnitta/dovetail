@@ -8,7 +8,8 @@
 
 The goal of dovetail is to help translate
 [Carpentries](https://carpentries.org/) lessons built using the
-[Carpentries Workbench](https://carpentries.github.io/sandpaper/).
+[Carpentries Workbench](https://carpentries.github.io/sandpaper/) and
+translated (usually) with [Crowdin](https://crowdin.com/).
 
 `dovetail` is in **early development** so much of the functionality is
 likely to change.

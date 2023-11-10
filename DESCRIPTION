@@ -15,26 +15,20 @@ Description: Provides tools to translate a Carpentries-themed lesson from one
   are meant to be edited by the Carpentries community at large.
 License: MIT + file LICENSE
 Encoding: UTF-8
-Roxygen: list(
-    markdown = TRUE,
-    roclets = c("collate", "namespace", "rd", "roxyglobals::global_roclet"))
+Roxygen: list(markdown = TRUE, roclets = c("collate", "namespace", "rd",
+    "roxyglobals::global_roclet"))
 RoxygenNote: 7.2.3
-Imports: 
-    assertr,
-    assertthat,
-    babelwhale,
-    digest,
-    dplyr,
-    fs,
-    glue,
-    magrittr,
-    purrr,
-    readr,
-    stringr,
-    tibble
 Suggests: 
-    roxyglobals (>= 0.2.1),
+    roxyglobals,
     testthat (>= 3.0.0)
-Remotes: 
-    anthonynorth/roxyglobals
 Config/testthat/edition: 3
+Config/roxyglobals/filename: globals.R
+Config/roxyglobals/unique: FALSE
+SystemRequirements: rsync
+Imports: 
+    assertthat,
+    fs,
+    gert,
+    sandpaper,
+    utils,
+    withr
