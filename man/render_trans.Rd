@@ -9,7 +9,7 @@ render_trans(
   l10n_branch = "l10n_main",
   main_branch = "main",
   lang,
-  clean_start = TRUE,
+  clean = TRUE,
   preview = TRUE,
   rsync_args = NULL
 )
@@ -25,9 +25,9 @@ directory.}
 
 \item{lang}{Language code.}
 
-\item{clean_start}{Logical; should any existing local translation branch
-be deleted before rendering? If \code{TRUE}, a fresh copy of the translation
-branch will be checked out from the remote. Default: \code{TRUE}.}
+\item{clean}{Logical; should any existing local translation branch
+be deleted before and after rendering? If \code{TRUE}, a fresh copy of the
+translation branch will be checked out from the remote. Default: \code{TRUE}.}
 
 \item{preview}{Logical; should the translated webpage be opened in a
 browser window? Default: \code{TRUE}.}

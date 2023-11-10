@@ -26,9 +26,9 @@
 #' (the "translation branch").
 #' @param main_branch Name of main branch (with files in the source language).
 #' @param lang Language code.
-#' @param clean_start Logical; should any existing local translation branch
-#' be deleted before rendering? If `TRUE`, a fresh copy of the translation
-#' branch will be checked out from the remote. Default: `TRUE`.
+#' @param clean Logical; should any existing local translation branch
+#' be deleted before and after rendering? If `TRUE`, a fresh copy of the
+#' translation branch will be checked out from the remote. Default: `TRUE`.
 #' @param preview Logical; should the translated webpage be opened in a
 #' browser window? Default: `TRUE`.
 #' @param rsync_args Character string; additional commands to use for rsync
@@ -43,7 +43,7 @@ render_trans <- function(
     l10n_branch = "l10n_main",
     main_branch = "main",
     lang,
-    clean_start = TRUE,
+    clean = TRUE,
     preview = TRUE,
     rsync_args = NULL) {
   # Checks ---
@@ -96,7 +96,7 @@ render_trans <- function(
     assertthat::is.string(lang)
   )
   assertthat::assert_that(
-    assertthat::is.flag(clean_start)
+    assertthat::is.flag(clean)
   )
   assertthat::assert_that(
     assertthat::is.flag(preview)
@@ -128,7 +128,7 @@ render_trans <- function(
 
   # Clean start: delete existing l10n branch (so we can check it out fresh)
   if (
-    clean_start &&
+    clean &&
       gert::git_branch_exists(branch = l10n_branch, repo = lesson_dir)) {
     gert::git_branch_checkout(
       branch = main_branch,
@@ -192,6 +192,19 @@ render_trans <- function(
 
   # cleanup
   fs::dir_delete(temp_dir)
+
+  gert::git_branch_checkout(
+    branch = main_branch,
+    repo = lesson_dir
+  )
+
+  if (clean &&
+      gert::git_branch_exists(branch = l10n_branch, repo = lesson_dir)) {
+    gert::git_branch_delete(
+      branch = l10n_branch,
+      repo = lesson_dir
+    )
+  }
 
   # optional preview
   if (preview) {
