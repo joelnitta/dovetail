@@ -32,4 +32,4 @@ devtools::install_github("joelnitta/dovetail")
 
 ## Example
 
-For an example of translating a lesson, see the [dovetail-demo repo](https://github.com/joelnitta/dovetail-demo)
+For an example of translating a lesson, see the [targets workshop repo](https://github.com/joelnitta/targets-workshop#translation-demo)
