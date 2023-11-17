@@ -50,8 +50,8 @@ This requires that the lesson repo have a translation branch containing
 translated files (typically maintained via Crowdin).
 }
 \details{
-The translated files should be located in a \verb{./locale/<LANG_CODE>/} hierarchy
-on the translation branch, for example:
+The translated files should be located in a \verb{./locale/<LANG_CODE>/}
+hierarchy, for example:
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{.
 └── locale
@@ -63,7 +63,12 @@ on the translation branch, for example:
 
 where \code{README.md} and the content of \verb{episodes/} are translated files in the
 target language (here, Spanish, as indicated by the language code \code{es}).
+The \verb{locale/} directory must exist either on the main branch or the
+translation branch.
 
 To translate from a translation branch that is already present locally,
 without pulling from the remote, set \code{clean} to \code{FALSE}.
+
+To translate from the current branch that contains a \verb{locale/} directory
+without pulling from the remote, set \code{l10n_branch} to \code{NULL}.
 }

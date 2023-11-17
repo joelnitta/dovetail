@@ -5,8 +5,8 @@
 #' This requires that the lesson repo have a translation branch containing
 #' translated files (typically maintained via Crowdin).
 #'
-#' The translated files should be located in a `./locale/<LANG_CODE>/` hierarchy
-#' on the translation branch, for example:
+#' The translated files should be located in a `./locale/<LANG_CODE>/`
+#' hierarchy, for example:
 #'
 #' ```
 #' .
@@ -19,9 +19,14 @@
 #'
 #' where `README.md` and the content of `episodes/` are translated files in the
 #' target language (here, Spanish, as indicated by the language code `es`).
+#' The `locale/` directory must exist either on the main branch or the
+#' translation branch.
 #'
 #' To translate from a translation branch that is already present locally,
 #' without pulling from the remote, set `clean` to `FALSE`.
+#'
+#' To translate from the current branch that contains a `locale/` directory
+#' without pulling from the remote, set `l10n_branch` to `NULL`.
 #'
 #' @param lesson_dir Path to the lesson directory. Default: current working
 #' directory.
@@ -91,7 +96,7 @@ render_trans <- function(
   # - l10n_branch in remote or local
   remote_branches <- gert::git_branch_list(local = FALSE, repo = lesson_dir)
   local_branches <- gert::git_branch_list(local = TRUE, repo = lesson_dir)
-  if (clean) {
+  if (clean && !is.null(l10n_branch)) {
     assertthat::assert_that(
       any(grepl(l10n_branch, remote_branches$name, fixed = TRUE)),
       msg = sprintf(
@@ -99,7 +104,7 @@ render_trans <- function(
         l10n_branch
       )
     )
-  } else {
+  } else if (!is.null(l10n_branch)) {
     assertthat::assert_that(
       any(grepl(l10n_branch, local_branches$name, fixed = TRUE)),
       msg = sprintf(
@@ -118,8 +123,8 @@ render_trans <- function(
   )
 
   # Copy translated lesson into a temporary folder
-  temp_dir <- make_locale_dir(
-    locale_dir = NULL,
+  temp_dir <- make_translated_dir(
+    translated_dir = NULL,
     overwrite = TRUE,
     lesson_dir = lesson_dir,
     l10n_branch = l10n_branch,
