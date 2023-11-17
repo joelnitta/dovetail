@@ -20,6 +20,9 @@
 #' where `README.md` and the content of `episodes/` are translated files in the
 #' target language (here, Spanish, as indicated by the language code `es`).
 #'
+#' To translate from a translation branch that is already present locally,
+#' without pulling from the remote, set `clean` to `FALSE`.
+#'
 #' @param lesson_dir Path to the lesson directory. Default: current working
 #' directory.
 #' @param l10n_branch Name of branch with translated files
@@ -28,7 +31,8 @@
 #' @param lang Language code.
 #' @param clean Logical; should any existing local translation branch
 #' be deleted before and after rendering? If `TRUE`, a fresh copy of the
-#' translation branch will be checked out from the remote. Default: `TRUE`.
+#' translation branch will be checked out from the remote. If `FALSE`, the
+#' existing local translation branch will be used. Default: `TRUE`.
 #' @param preview Logical; should the translated webpage be opened in a
 #' browser window? Default: `TRUE`.
 #' @param include_glob Character; only files with names matching one or more
@@ -49,6 +53,16 @@ render_trans <- function(
     preview = TRUE,
     include_glob = NULL) {
   # Checks ---
+  # - basic checks
+  assertthat::assert_that(
+    assertthat::is.string(lang)
+  )
+  assertthat::assert_that(
+    assertthat::is.flag(clean)
+  )
+  assertthat::assert_that(
+    assertthat::is.flag(preview)
+  )
   # - lesson_dir is folder
   assertthat::assert_that(
     fs::dir_exists(lesson_dir),
@@ -68,24 +82,33 @@ render_trans <- function(
         lesson_dir
       )
   )
-
-  # - lesson_dir is clean
+  # - lesson_dir git status is clean
   status <- gert::git_status(repo = lesson_dir)
   assertthat::assert_that(
     nrow(status) == 0,
     msg = "Git status of lesson repo is not clean"
   )
-  # - l10n_branch in remote
+  # - l10n_branch in remote or local
   remote_branches <- gert::git_branch_list(local = FALSE, repo = lesson_dir)
-  assertthat::assert_that(
-    any(grepl(l10n_branch, remote_branches$name, fixed = TRUE)),
-    msg = sprintf(
-      "'%s' not detected in branches of remote lesson repo",
-      l10n_branch
-    )
-  )
-  # - main branch in local
   local_branches <- gert::git_branch_list(local = TRUE, repo = lesson_dir)
+  if (clean) {
+    assertthat::assert_that(
+      any(grepl(l10n_branch, remote_branches$name, fixed = TRUE)),
+      msg = sprintf(
+        "'%s' not detected in branches of remote lesson repo",
+        l10n_branch
+      )
+    )
+  } else {
+    assertthat::assert_that(
+      any(grepl(l10n_branch, local_branches$name, fixed = TRUE)),
+      msg = sprintf(
+        "'%s' not detected in branches of local lesson repo",
+        l10n_branch
+      )
+    )
+  }
+  # - main branch in local
   assertthat::assert_that(
     main_branch %in% local_branches$name,
     msg = sprintf(
@@ -93,91 +116,17 @@ render_trans <- function(
       main_branch
     )
   )
-  # - others
-  assertthat::assert_that(
-    assertthat::is.string(lang)
-  )
-  assertthat::assert_that(
-    assertthat::is.flag(clean)
-  )
-  assertthat::assert_that(
-    assertthat::is.flag(preview)
-  )
 
-  # Make a temp dir for writing lesson
-  temp_dir <- fs::path(
-    tempdir(),
-    # Name folder by most recent commit in l10n branch
-    gert::git_commit_info(main_branch, lesson_dir)$id
-  )
-
-  if (fs::dir_exists(temp_dir)) {
-    fs::dir_delete(temp_dir)
-  }
-
-  fs::dir_create(temp_dir)
-
-  # Copy source lang files to temp dir
-  system2(
-    "rsync",
-    c(
-      "-a",
-      # need trailing slash to copy *contents* of folders
-      paste0(fs::path_abs(lesson_dir), "/"),
-      paste0(fs::path_abs(temp_dir), "/")
-    )
-  )
-
-  # Clean start: delete existing l10n branch (so we can check it out fresh)
-  if (
-    clean &&
-      gert::git_branch_exists(branch = l10n_branch, repo = lesson_dir)) {
-    gert::git_branch_checkout(
-      branch = main_branch,
-      repo = lesson_dir
-    )
-    gert::git_branch_delete(
-      branch = l10n_branch,
-      repo = lesson_dir
-    )
-  }
-
-  # Checkout l10n branch from remote
-  gert::git_branch_checkout(
-    branch = l10n_branch,
-    repo = lesson_dir
-  )
-
-  # Specify dir with translated lesson
-  lesson_lang_dir <- fs::path(lesson_dir, "locale", lang)
-
-  assertthat::assert_that(
-    fs::dir_exists(lesson_lang_dir),
-    msg = sprintf(
-      "Is 'lang' correct? No folder detected at '%s'",
-      lesson_lang_dir
-    )
-  )
-
-  include_args <- NULL
-  if (!is.null(include_glob)) {
-    assertthat::assert_that(is.character(include_glob))
-    include_args <- c(
-      "--include='*/'",
-      paste0("--include='", include_glob, "'"),
-      "--exclude='*'"
-    )
-  }
-
-  system2(
-    "rsync",
-    c(
-      "-av",
-      include_args,
-      # need trailing slash to copy *contents* of folders
-      paste0(fs::path_abs(lesson_lang_dir), "/"),
-      paste0(fs::path_abs(temp_dir), "/")
-    )
+  # Copy translated lesson into a temporary folder
+  temp_dir <- make_locale_dir(
+    locale_dir = NULL,
+    overwrite = TRUE,
+    lesson_dir = lesson_dir,
+    l10n_branch = l10n_branch,
+    main_branch = main_branch,
+    lang = lang,
+    clean = clean,
+    include_glob = include_glob
   )
 
   # render lesson
@@ -186,7 +135,7 @@ render_trans <- function(
     sandpaper::build_lesson(preview = FALSE)
   )
 
-  # copy into local site folder
+  # copy rendered lesson into local site folder
   fs::dir_copy(
     fs::path(temp_dir, "site"),
     fs::path(lesson_dir, "site"),

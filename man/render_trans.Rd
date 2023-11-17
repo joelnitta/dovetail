@@ -27,7 +27,8 @@ directory.}
 
 \item{clean}{Logical; should any existing local translation branch
 be deleted before and after rendering? If \code{TRUE}, a fresh copy of the
-translation branch will be checked out from the remote. Default: \code{TRUE}.}
+translation branch will be checked out from the remote. If \code{FALSE}, the
+existing local translation branch will be used. Default: \code{TRUE}.}
 
 \item{preview}{Logical; should the translated webpage be opened in a
 browser window? Default: \code{TRUE}.}
@@ -62,4 +63,7 @@ on the translation branch, for example:
 
 where \code{README.md} and the content of \verb{episodes/} are translated files in the
 target language (here, Spanish, as indicated by the language code \code{es}).
+
+To translate from a translation branch that is already present locally,
+without pulling from the remote, set \code{clean} to \code{FALSE}.
 }
