@@ -1,11 +1,17 @@
 test_that("checks work", {
   expect_error(
-    render_trans(lesson_dir = "most definitely not a folder", lang = "ja"),
+    render_trans_from_branch(
+      lesson_dir = "most definitely not a folder", lang = "ja"),
+    "No folder exists at"
+  )
+  expect_error(
+    render_trans_from_dir(
+      lesson_dir = "most definitely not a folder", lang = "ja"),
     "No folder exists at"
   )
   temp_dir <- fs::dir_create((fs::path(tempdir(), "testing_dir")))
   expect_error(
-    render_trans(lesson_dir = temp_dir, lang = "ja"),
+    render_trans_from_branch(lesson_dir = temp_dir, lang = "ja"),
     "does not appear to be a git repository"
   )
   fs::dir_delete(temp_dir)
@@ -52,7 +58,7 @@ test_that("translation works with l10n branch", {
   )
   # If this test fails, be sure to check the full website by setting to TRUE
   check_website <- FALSE
-  render_trans(
+  render_trans_from_branch(
     lesson_dir = temp_lesson,
     lang = "ja",
     clean = FALSE,
@@ -101,11 +107,9 @@ test_that("translation works with locale dir", {
   )
   # If this test fails, be sure to check the full website by setting to TRUE
   check_website <- FALSE
-  render_trans(
+  render_trans_from_dir(
     lesson_dir = temp_lesson,
     lang = "ja",
-    l10n_branch = NULL,
-    clean = FALSE,
     preview = check_website
   )
   # Cannot snapshot entire introduction.html file because some HTML

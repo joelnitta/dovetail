@@ -2,7 +2,7 @@
 #'
 #' Render a translation of a Carpentries lesson built with
 #' [sandpaper](https://github.com/carpentries/sandpaper).
-#' This requires that the lesson repo have a translation branch containing
+#' This requires that the lesson repo have a directory (or branch) containing
 #' translated files (typically maintained via Crowdin).
 #'
 #' The translated files should be located in a `./locale/<LANG_CODE>/`
@@ -22,11 +22,13 @@
 #' The `locale/` directory must exist either on the main branch or the
 #' translation branch.
 #'
-#' To translate from a translation branch that is already present locally,
-#' without pulling from the remote, set `clean` to `FALSE`.
+#' `render_trans_from_branch()` may be used when the `locale/` directory
+#' exists on the translation branch, and requires that the lesson directory
+#' is a git repo. If `clean` is `TRUE`, the repo must be in a clean git state.
 #'
-#' To translate from the current branch that contains a `locale/` directory
-#' without pulling from the remote, set `l10n_branch` to `NULL`.
+#' `render_trans_from_dir()` may be used when the `locale/` directory exists
+#' in the current lesson directory. It does not require the lesson directory to
+#' be a git repo, nor does it care about its git status if it is.
 #'
 #' @param lesson_dir Path to the lesson directory. Default: current working
 #' directory.
@@ -40,25 +42,30 @@
 #' existing local translation branch will be used. Default: `TRUE`.
 #' @param preview Logical; should the translated webpage be opened in a
 #' browser window? Default: `TRUE`.
-#' @param include_glob Character; only files with names matching one or more
-#' strings in this character vector will be translated. Use to limit the
-#' files for translation. Default: `NULL` (all files with translations
-#' available will be translated).
 #'
 #' @return Nothing. This is typically called for its side-effect of rendering
 #' a translated webpage. The webpage will be written to the `site` folder of
 #' the lesson.
 #' @export
-render_trans <- function(
-    lesson_dir = ".",
-    l10n_branch = "l10n_main",
-    main_branch = "main",
-    lang,
-    clean = TRUE,
-    preview = TRUE,
-    include_glob = NULL) {
+render_trans_from_branch <- function(
+  lesson_dir = ".",
+  l10n_branch = "l10n_main",
+  main_branch = "main",
+  lang,
+  clean = TRUE,
+  preview = TRUE) {
+
   # Checks ---
   # - basic checks
+  assertthat::assert_that(
+    assertthat::is.string(lesson_dir)
+  )
+  assertthat::assert_that(
+    assertthat::is.string(l10n_branch)
+  )
+  assertthat::assert_that(
+    assertthat::is.string(main_branch)
+  )
   assertthat::assert_that(
     assertthat::is.string(lang)
   )
@@ -68,6 +75,7 @@ render_trans <- function(
   assertthat::assert_that(
     assertthat::is.flag(preview)
   )
+
   # - lesson_dir is folder
   assertthat::assert_that(
     fs::dir_exists(lesson_dir),
@@ -88,11 +96,13 @@ render_trans <- function(
       )
   )
   # - lesson_dir git status is clean
-  status <- gert::git_status(repo = lesson_dir)
-  assertthat::assert_that(
-    nrow(status) == 0,
-    msg = "Git status of lesson repo is not clean"
-  )
+  if (clean) {
+    status <- gert::git_status(repo = lesson_dir)
+    assertthat::assert_that(
+      nrow(status) == 0,
+      msg = "Git status of lesson repo is not clean"
+    )
+  }
   # - l10n_branch in remote or local
   remote_branches <- gert::git_branch_list(local = FALSE, repo = lesson_dir)
   local_branches <- gert::git_branch_list(local = TRUE, repo = lesson_dir)
@@ -130,30 +140,31 @@ render_trans <- function(
     l10n_branch = l10n_branch,
     main_branch = main_branch,
     lang = lang,
-    clean = clean,
-    include_glob = include_glob
+    clean = clean
   )
 
-  # render lesson
+  # Render lesson
   withr::with_dir(
     temp_dir,
     sandpaper::build_lesson(preview = FALSE)
   )
 
-  # copy rendered lesson into local site folder
+  # Copy rendered lesson into local site folder
   fs::dir_copy(
     fs::path(temp_dir, "site"),
     fs::path(lesson_dir, "site"),
     overwrite = TRUE
   )
 
-  # cleanup
+  # Cleanup
   fs::dir_delete(temp_dir)
 
-  gert::git_branch_checkout(
-    branch = main_branch,
-    repo = lesson_dir
-  )
+  if (clean) {
+    gert::git_branch_checkout(
+      branch = main_branch,
+      repo = lesson_dir
+    )
+  }
 
   if (clean &&
       gert::git_branch_exists(branch = l10n_branch, repo = lesson_dir)) {
@@ -163,7 +174,84 @@ render_trans <- function(
     )
   }
 
-  # optional preview
+  # Preview
+  if (preview) {
+    utils::browseURL(
+      url = fs::path(lesson_dir, "site", "docs", "index.html")
+    )
+  }
+
+  invisible()
+
+}
+
+#' @rdname render_trans_from_branch
+render_trans_from_dir <- function(
+    lesson_dir = ".",
+    lang,
+    preview = TRUE) {
+
+  # Checks ---
+  # - basic checks
+  assertthat::assert_that(
+    assertthat::is.string(lang)
+  )
+  assertthat::assert_that(
+    assertthat::is.flag(preview)
+  )
+  # - lesson_dir is folder
+  assertthat::assert_that(
+    fs::dir_exists(lesson_dir),
+    msg = sprintf(
+      "No folder exists at 'lesson_dir' %s",
+      lesson_dir
+    )
+  )
+  # - locale dir exists
+  assertthat::assert_that(
+    fs::dir_exists(fs::path(lesson_dir, "locale")),
+    msg = sprintf(
+      "'lesson_dir' %s is missing locale/ directory",
+      lesson_dir
+    )
+  )
+  # - lang dir exists
+  lesson_lang_dir <- fs::path(lesson_dir, "locale", lang)
+  assertthat::assert_that(
+    fs::dir_exists(lesson_lang_dir),
+    msg = sprintf(
+      "Is 'lang' correct? No folder detected at '%s'",
+      lesson_lang_dir
+    )
+  )
+
+  # Copy translated lesson into a temporary folder
+  temp_dir <- make_translated_dir(
+    translated_dir = NULL,
+    overwrite = TRUE,
+    lesson_dir = lesson_dir,
+    l10n_branch = NULL,
+    lang = lang,
+    clean = FALSE
+  )
+
+  # Render lesson
+  withr::with_dir(
+    temp_dir,
+    sandpaper::build_lesson(preview = FALSE)
+  )
+
+  # Copy rendered lesson into local site folder
+  fs::dir_copy(
+    fs::path(temp_dir, "site"),
+    fs::path(lesson_dir, "site"),
+    overwrite = TRUE
+  )
+
+  # Cleanup
+  fs::dir_delete(temp_dir)
+
+  # Preview
   if (preview) {
     utils::browseURL(
       url = fs::path(lesson_dir, "site", "docs", "index.html")

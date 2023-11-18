@@ -5,6 +5,10 @@
 #' materials. If NULL, a directory will be created.
 #' @param overwrite Logical; is it OK to overwrite any existing contents of
 #' translated_dir?
+#' @param include_glob Character; only files with names matching one or more
+#' strings in this character vector will be translated. Use to limit the
+#' files for translation. Default: `NULL` (all files with translations
+#' available will be translated).
 #'
 #' @return Path to the lesson directory with translated materials
 #' @noRd
@@ -24,8 +28,8 @@ make_translated_dir <- function(
   # Specify temp dir for writing lesson
   temp_dir <- fs::path(
     tempdir(),
-    # Name folder by most recent commit in l10n branch
-    gert::git_commit_info(main_branch, lesson_dir)$id
+    # Name folder with random string
+    digest::digest(Sys.time())
   )
   } else if (fs::dir_exists(translated_dir) && !overwrite) {
     stop(
