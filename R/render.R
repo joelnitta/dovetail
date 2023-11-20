@@ -186,6 +186,7 @@ render_trans_from_branch <- function(
 }
 
 #' @rdname render_trans_from_branch
+#' @export
 render_trans_from_dir <- function(
     lesson_dir = ".",
     lang,
