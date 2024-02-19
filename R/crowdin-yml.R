@@ -37,7 +37,6 @@ use_crowdin_yml <- function(lesson_dir = ".", overwrite = NULL) {
   if (crowdin_yml_exists && !isTRUE(overwrite)) {
     cli::cli_abort(
       "{.file crowdin.yml} exists and `overwrite` is FALSE.")
-    return(invisible())
   }
   res <- fs::file_copy(crowdin_yml_ext, lesson_dir, overwrite = TRUE) |>
     fs::path_abs()
