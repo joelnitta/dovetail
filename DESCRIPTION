@@ -28,9 +28,11 @@ Config/roxyglobals/unique: FALSE
 SystemRequirements: rsync
 Imports: 
     assertthat,
+    cli,
     digest,
     fs,
     gert,
     sandpaper,
+    usethis,
     utils,
     withr
