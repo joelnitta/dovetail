@@ -2,3 +2,4 @@
 
 export(render_trans_from_branch)
 export(render_trans_from_dir)
+export(use_crowdin_yml)
