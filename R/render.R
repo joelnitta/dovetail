@@ -143,6 +143,16 @@ render_trans_from_branch <- function(
     clean = clean
   )
 
+  # Set lesson lang to 'lang' so that sandpaper elements are translated as well
+  withr::with_dir(
+    temp_dir,
+    {
+      conf <- yaml::read_yaml("config.yaml")
+      conf$lang <- lang
+      yaml::write_yaml(conf, "config.yaml")
+    }
+  )
+
   # Render lesson
   withr::with_dir(
     temp_dir,
@@ -234,6 +244,16 @@ render_trans_from_dir <- function(
     l10n_branch = NULL,
     lang = lang,
     clean = FALSE
+  )
+
+  # Set lesson lang to 'lang' so that sandpaper elements are translated as well
+  withr::with_dir(
+    temp_dir,
+    {
+      conf <- yaml::read_yaml("config.yaml")
+      conf$lang <- lang
+      yaml::write_yaml(conf, "config.yaml")
+    }
   )
 
   # Render lesson
