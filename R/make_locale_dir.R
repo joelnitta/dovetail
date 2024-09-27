@@ -52,7 +52,7 @@ make_translated_dir <- function(
   system2(
     "rsync",
     c(
-      "-a",
+      "-rl",
       # need trailing slash to copy *contents* of folders
       paste0(fs::path_abs(lesson_dir), "/"),
       paste0(fs::path_abs(temp_dir), "/")
@@ -107,7 +107,7 @@ make_translated_dir <- function(
   system2(
     "rsync",
     c(
-      "-av",
+      "-rl",
       include_args,
       # need trailing slash to copy *contents* of folders
       paste0(fs::path_abs(lesson_lang_dir), "/"),
